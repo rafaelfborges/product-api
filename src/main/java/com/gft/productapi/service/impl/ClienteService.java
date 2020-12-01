@@ -8,7 +8,9 @@ import com.gft.productapi.repository.ClienteRepository;
 import com.gft.productapi.service.interfaces.ClienteServiceInterface;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClienteService implements ClienteServiceInterface {
 
     @Autowired
