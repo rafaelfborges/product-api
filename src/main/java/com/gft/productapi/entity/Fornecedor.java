@@ -2,10 +2,12 @@ package com.gft.productapi.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -15,8 +17,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@Entity
 @Table
+@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Fornecedor {
 
@@ -31,5 +33,6 @@ public class Fornecedor {
     @NotBlank
     private String cnpj;
 
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<Produto> produtos;
 }
