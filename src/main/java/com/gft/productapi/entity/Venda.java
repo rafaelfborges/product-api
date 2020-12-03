@@ -32,7 +32,7 @@ public class Venda {
 
     @ManyToOne
     @ToString.Exclude
-    private Fornecedor fornecedor;
+    private Empresa empresa;
 
     @ManyToOne
     @ToString.Exclude

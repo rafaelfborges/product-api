@@ -11,9 +11,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Data
 @Table
@@ -50,6 +51,6 @@ public class Produto {
     private Long quantidade;
 
     @ManyToOne
-    @ToString.Exclude
-    private Fornecedor fornecedor;
+    @JsonIgnore
+    private Empresa empresa;
 }

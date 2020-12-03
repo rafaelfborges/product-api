@@ -3,7 +3,9 @@ package com.gft.productapi.service.impl;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.gft.productapi.dto.ProdutoDto;
 import com.gft.productapi.entity.Produto;
+import com.gft.productapi.mapper.ProdutoMapper;
 import com.gft.productapi.repository.ProdutoRepository;
 import com.gft.productapi.service.interfaces.ProdutoServiceInterface;
 
@@ -14,7 +16,10 @@ import org.springframework.stereotype.Service;
 public class ProdutoService implements ProdutoServiceInterface {
 
     @Autowired
-    private ProdutoRepository produtoRepository;
+	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ProdutoMapper produtoMapper;
 
 	@Override
 	public Produto save(Produto produto) {
@@ -34,5 +39,10 @@ public class ProdutoService implements ProdutoServiceInterface {
 	@Override
 	public void deleteById(Long id) {
 		produtoRepository.deleteById(id);
+	}
+
+	@Override
+	public List<ProdutoDto> listarTudo() {
+		return produtoMapper.map(this.findAll());
 	}
 }

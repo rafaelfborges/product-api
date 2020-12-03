@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.gft.productapi.dto.ProdutoDto;
 import com.gft.productapi.entity.Produto;
 import com.gft.productapi.service.impl.ProdutoService;
 
@@ -30,8 +31,8 @@ public class ProdutoResource {
     private ProdutoService produtoService;
 
     @GetMapping
-    public ResponseEntity<List<Produto>> findAll() {
-        return ResponseEntity.ok(produtoService.findAll());
+    public ResponseEntity<List<ProdutoDto>> findAll() {
+        return ResponseEntity.ok(produtoService.listarTudo());
     }
 
     @GetMapping("/{id}")
