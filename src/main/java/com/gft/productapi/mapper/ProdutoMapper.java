@@ -7,23 +7,20 @@ import com.gft.productapi.entity.Produto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
 public interface ProdutoMapper {
 
-    @Mappings({
-        @Mapping(source = "id", target = "id"),
-        @Mapping(source = "nome", target = "nome"),
-        @Mapping(source = "codigoProduto", target = "codigoProduto"),
-        @Mapping(source = "valor", target = "valor"),
-        @Mapping(source = "promocao", target = "promocao"),
-        @Mapping(source = "valorPromo", target = "valorPromo"),
-        @Mapping(source = "categoria", target = "categoria"),
-        @Mapping(source = "imagem", target = "imagem"),
-        @Mapping(source = "quantidade", target = "quantidade"),
-        @Mapping(source = "empresa", target = "empresa"),
-    })
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "nome", target = "nome")
+    @Mapping(source = "codigoProduto", target = "codigoProduto")
+    @Mapping(source = "valor", target = "valor")
+    @Mapping(source = "promocao", target = "promocao")
+    @Mapping(source = "valorPromo", target = "valorPromo")
+    @Mapping(source = "categoria", target = "categoria")
+    @Mapping(source = "imagem", target = "imagem")
+    @Mapping(source = "quantidade", target = "quantidade")
+    @Mapping(source = "empresa", target = "empresa")
     ProdutoDto map(Produto produto);
 
     List<ProdutoDto> map(List<Produto> produtos);
