@@ -2,8 +2,8 @@ package com.gft.productapi.mapper;
 
 import java.util.List;
 
-import com.gft.productapi.dto.ProdutoDto;
 import com.gft.productapi.entity.Produto;
+import com.gft.productapi.dto.ProdutoDto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
