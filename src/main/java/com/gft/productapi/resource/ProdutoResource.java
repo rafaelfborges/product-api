@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @Api(tags = "Produtos")
@@ -31,26 +33,32 @@ public class ProdutoResource {
     private ProdutoService produtoService;
 
     @GetMapping
+    @ApiOperation("Listar todas os produtos")
     public ResponseEntity<List<ProdutoDto>> findAll() {
         return ResponseEntity.ok(produtoService.listarTudo());
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Buscar um produto pelo id")
     public ResponseEntity<Produto> findById(@PathVariable Long id) {
         return ResponseEntity.ok(produtoService.findById(id));
     }
 
     @PostMapping
+    @ApiOperation("Adiciona um novo produto")
     public ResponseEntity<Produto> create(@Valid @RequestBody Produto produto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(produto));
     }
 
     @PutMapping("/{id}")
+    @ApiOperation("Atualiza um produto")
     public ResponseEntity<Produto> update(@PathVariable Long id, @Valid @RequestBody Produto produto) {
         return null;
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Remove um produto")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable Long id) {
         produtoService.deleteById(id);
     }
