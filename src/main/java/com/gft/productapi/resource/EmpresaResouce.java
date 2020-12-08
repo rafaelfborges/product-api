@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @Api(tags = "Empresas")
@@ -50,13 +51,14 @@ public class EmpresaResouce {
     }
 
     @PutMapping("/{id}")
-    @ApiOperation("Atualiza um produto")
-    public ResponseEntity<Empresa> update(@PathVariable Long id, @Valid @RequestBody Empresa empresa) {
+    @ApiOperation("Atualiza uma empresa")
+    public ResponseEntity<Empresa> update(@ApiParam(value = "Id de uma empresa") @PathVariable Long id, 
+                                          @Valid @RequestBody Empresa empresa) {
         return null;
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation("Remove um produto")
+    @ApiOperation("Remove uma empresa")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable Long id) {
         empresaService.deleteById(id);
