@@ -2,6 +2,7 @@ package com.gft.productapi.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,6 +30,7 @@ public class Produto {
     private String nome;
 
     @NotBlank
+    @Column(unique = true)
     private String codigoProduto;
 
     @NotNull
@@ -50,7 +50,7 @@ public class Produto {
     @NotNull
     private Long quantidade;
 
+    @NotNull
     @ManyToOne
-    @JsonIgnore
     private Empresa empresa;
 }

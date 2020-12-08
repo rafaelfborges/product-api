@@ -42,7 +42,7 @@ public class ProdutoService implements ProdutoServiceInterface {
 	}
 
 	@Override
-	public List<ProdutoDto> listarTudo() {
+	public List<ProdutoDto> listarProdutos() {
 		return produtoMapper.map(this.findAll());
 	}
 }

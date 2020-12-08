@@ -7,6 +7,6 @@ import com.gft.productapi.entity.Produto;
 
 public interface ProdutoServiceInterface extends ServiceInterface<Produto> {
     
-    List<ProdutoDto> listarTudo();
+    List<ProdutoDto> listarProdutos();
 }
 

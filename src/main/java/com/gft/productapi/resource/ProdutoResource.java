@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @Api(tags = "Produtos")
@@ -35,7 +36,7 @@ public class ProdutoResource {
     @GetMapping
     @ApiOperation("Listar todas os produtos")
     public ResponseEntity<List<ProdutoDto>> findAll() {
-        return ResponseEntity.ok(produtoService.listarTudo());
+        return ResponseEntity.ok(produtoService.listarProdutos());
     }
 
     @GetMapping("/{id}")
@@ -52,14 +53,15 @@ public class ProdutoResource {
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza um produto")
-    public ResponseEntity<Produto> update(@PathVariable Long id, @Valid @RequestBody Produto produto) {
+    public ResponseEntity<Produto> update(@ApiParam(value = "Id de um produto") @PathVariable Long id, 
+                                          @Valid @RequestBody Produto produto) {
         return null;
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation("Remove um produto")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remove(@PathVariable Long id) {
+    public void remove(@PathVariable Long id) { 
         produtoService.deleteById(id);
     }
 }
