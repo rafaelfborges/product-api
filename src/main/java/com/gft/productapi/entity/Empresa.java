@@ -1,6 +1,7 @@
 package com.gft.productapi.entity;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,5 +40,5 @@ public class Empresa {
 
     @JsonIgnoreProperties("empresa")
     @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Produto> produtos;
+    private Set<Produto> produtos = new HashSet<>();
 }
