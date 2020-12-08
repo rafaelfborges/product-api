@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.gft.productapi.dto.VendaDto;
 import com.gft.productapi.entity.Venda;
 import com.gft.productapi.service.impl.VendaService;
 
@@ -34,14 +35,14 @@ public class VendaResource{
 
     @GetMapping
     @ApiOperation("Listar todas as vendas")
-    public ResponseEntity<List<Venda>> findAll() {
-        return ResponseEntity.ok(vendaService.findAll());
+    public ResponseEntity<List<VendaDto>> findAll() {
+        return ResponseEntity.ok(vendaService.listarVendas());
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar uma venda pelo id")
-    public ResponseEntity<Venda> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(vendaService.findById(id));
+    public ResponseEntity<VendaDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(vendaService.listarVendaPorId(id));
     }
 
     @PostMapping
