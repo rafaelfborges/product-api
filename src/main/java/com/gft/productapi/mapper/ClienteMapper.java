@@ -15,7 +15,7 @@ public interface ClienteMapper {
     @Mapping(source = "nome", target = "nome")
     @Mapping(source = "email", target = "email")
     @Mapping(source = "documento", target = "documento")
-    @Mapping(source = "dataCadastro", target = "dataCadastro", dateFormat = "dd-MM-yyyy")
+    @Mapping(source = "dataCadastro", target = "dataCadastro", dateFormat = "dd/MM/yyyy")
     ClienteDto map(Cliente cliente);
 
     List<ClienteDto> map(List<Cliente> cliente);
