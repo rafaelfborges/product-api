@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.gft.productapi.dto.ClienteDto;
 import com.gft.productapi.entity.Cliente;
 import com.gft.productapi.service.impl.ClienteService;
 
@@ -34,8 +35,8 @@ public class ClienteResource {
 
     @GetMapping
     @ApiOperation("Listar todas os clientes")
-    public ResponseEntity<List<Cliente>> findAll() {
-        return ResponseEntity.ok(clienteService.findAll());
+    public ResponseEntity<List<ClienteDto>> findAll() {
+        return ResponseEntity.ok(clienteService.listarClientes());
     }
 
     @GetMapping("/{id}")
