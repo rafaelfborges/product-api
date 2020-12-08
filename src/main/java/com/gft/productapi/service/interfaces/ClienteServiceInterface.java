@@ -8,4 +8,6 @@ import com.gft.productapi.entity.Cliente;
 public interface ClienteServiceInterface extends ServiceInterface<Cliente> {
     
     List<ClienteDto> listarClientes();
+
+    ClienteDto listarClientePorId(Long id);
 }

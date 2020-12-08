@@ -41,8 +41,8 @@ public class ClienteResource {
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar um cliente pelo id")
-    public ResponseEntity<Cliente> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(clienteService.findById(id));
+    public ResponseEntity<ClienteDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(clienteService.listarClientePorId(id));
     }
 
     @PostMapping

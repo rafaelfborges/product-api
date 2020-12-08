@@ -45,4 +45,9 @@ public class ClienteService implements ClienteServiceInterface {
 	public List<ClienteDto> listarClientes() {
 		return clienteMapper.map(this.findAll());
 	}
+
+	@Override
+	public ClienteDto listarClientePorId(Long id) {
+		return clienteMapper.map(this.findById(id));
+	}
 }

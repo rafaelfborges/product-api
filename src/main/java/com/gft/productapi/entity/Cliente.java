@@ -42,6 +42,6 @@ public class Cliente {
 
     @CreationTimestamp
     @Column(name = "data_cadastro")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 }
