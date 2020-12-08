@@ -45,4 +45,9 @@ public class ProdutoService implements ProdutoServiceInterface {
 	public List<ProdutoDto> listarProdutos() {
 		return produtoMapper.map(this.findAll());
 	}
+
+	@Override
+	public ProdutoDto listarProdutoPorId(Long id) {
+		return produtoMapper.map(this.findById(id));
+	}
 }
