@@ -2,7 +2,7 @@ package com.gft.productapi.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -32,8 +34,10 @@ public class Empresa {
 
     @CNPJ
     @NotBlank
+    @Column(unique = true)
     private String cnpj;
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("empresa")
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Produto> produtos;
 }
