@@ -1,4 +1,4 @@
-package com.gft.productapi.exceptions;
+package com.gft.productapi.exception;
 
 public class ProdutoSemEstoqueException extends RuntimeException {
 
