@@ -1,9 +1,11 @@
 package com.gft.productapi.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.gft.productapi.entity.Produto;
+import com.gft.productapi.exceptions.ProdutoSemEstoqueException;
 import com.gft.productapi.dto.ProdutoDto;
 import com.gft.productapi.mapper.ProdutoMapper;
 import com.gft.productapi.repository.ProdutoRepository;
@@ -49,5 +51,27 @@ public class ProdutoService implements ProdutoServiceInterface {
 	@Override
 	public ProdutoDto listarProdutoPorId(Long id) {
 		return produtoMapper.map(this.findById(id));
+	}
+
+	@Override
+	public BigDecimal somarTotalProdutos(List<Long> ids) {
+		return produtoRepository.findAllById(ids).stream()
+												 .map(p -> p.getValor())
+								                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
+	@Override
+	public void diminuirEstoqueProdutos(List<Long> ids) {
+		List<Produto> produtos = produtoRepository.findAllById(ids);
+		produtos.forEach(p -> p.diminuirQuantidade());
+		produtoRepository.saveAll(produtos);
+	}
+
+	@Override
+	public void verificarEstoqueProdutos(List<Long> ids) {
+		for(Produto p : produtoRepository.findAllById(ids)) {
+			if(p.getQuantidade().intValue() <= 0 )
+				throw new ProdutoSemEstoqueException(p.getNome());
+		}				 
 	}
 }

@@ -53,4 +53,9 @@ public class Produto {
     @NotNull
     @ManyToOne
     private Empresa empresa;
+
+    public void diminuirQuantidade() {
+        if(this.quantidade > 0) 
+            this.quantidade--;
+    }
 }
