@@ -53,7 +53,7 @@ public class VendaResource{
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza uma venda")
-    public ResponseEntity<Venda> update(@ApiParam(value = "Id de uma venda") @PathVariable Long id, 
+    public ResponseEntity<Venda> update(@ApiParam(value = "Id de uma venda", example = "1") @PathVariable Long id, 
                                           @Valid @RequestBody Venda venda) {
         return ResponseEntity.ok(vendaService.updateById(id, venda));
     }

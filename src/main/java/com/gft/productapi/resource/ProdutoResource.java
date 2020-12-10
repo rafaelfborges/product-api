@@ -53,7 +53,7 @@ public class ProdutoResource {
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza um produto")
-    public ResponseEntity<Produto> update(@ApiParam(value = "Id de um produto") @PathVariable Long id, 
+    public ResponseEntity<Produto> update(@ApiParam(value = "Id de um produto", example = "1") @PathVariable Long id, 
                                           @Valid @RequestBody Produto produto) {
         return ResponseEntity.ok(produtoService.updateById(id, produto));
     }

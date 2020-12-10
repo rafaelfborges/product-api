@@ -52,7 +52,7 @@ public class EmpresaResouce {
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza uma empresa")
-    public ResponseEntity<Empresa> update(@ApiParam(value = "Id de uma empresa") @PathVariable Long id, 
+    public ResponseEntity<Empresa> update(@ApiParam(value = "Id de uma empresa", example = "1") @PathVariable Long id, 
                                           @Valid @RequestBody Empresa empresa) {
         return ResponseEntity.ok(empresaService.updateById(id, empresa));
     }

@@ -53,7 +53,7 @@ public class ClienteResource {
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza um cliente")
-    public ResponseEntity<Cliente> update(@ApiParam(value = "Id de um cliente") @PathVariable Long id, 
+    public ResponseEntity<Cliente> update(@ApiParam(value = "Id de um cliente", example = "1") @PathVariable Long id, 
                                           @Valid @RequestBody Cliente cliente) {
         return ResponseEntity.ok(clienteService.updateById(id, cliente));
     }
