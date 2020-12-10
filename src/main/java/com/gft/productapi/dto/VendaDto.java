@@ -17,7 +17,7 @@ public class VendaDto {
     private EmpresaDto empresa;
     private ClienteDto cliente;
 
-    @JsonIgnoreProperties("empresa")
+    @JsonIgnoreProperties({"empresa", "quantidade"})
     private Set<Produto> produtos;
 
     private BigDecimal totalCompra;

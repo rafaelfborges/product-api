@@ -1,8 +1,8 @@
 package com.gft.productapi.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import com.gft.productapi.dto.VendaDto;
 import com.gft.productapi.entity.Venda;
@@ -27,12 +27,13 @@ public class VendaService implements VendaServiceInterface {
 
 	@Override
 	public Venda save(Venda venda) {
-		BigDecimal valorTotal = venda.getProdutos()
-										.stream()
-										.map(p -> produtoService.findById(p.getId()).getValor())
-										.reduce(BigDecimal.ZERO, BigDecimal::add);
+		List<Long> idsProdutos = venda.getProdutos().stream()
+									 			    .map(p -> p.getId())
+												    .collect(Collectors.toList());
 
-		venda.setTotalCompra(valorTotal);
+		produtoService.verificarEstoqueProdutos(idsProdutos);
+		venda.setTotalCompra(produtoService.somarTotalProdutos(idsProdutos));
+		produtoService.diminuirEstoqueProdutos(idsProdutos);
 		return vendaRepository.save(venda);
 	}
 
