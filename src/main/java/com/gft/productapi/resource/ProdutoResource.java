@@ -55,7 +55,7 @@ public class ProdutoResource {
     @ApiOperation("Atualiza um produto")
     public ResponseEntity<Produto> update(@ApiParam(value = "Id de um produto") @PathVariable Long id, 
                                           @Valid @RequestBody Produto produto) {
-        return null;
+        return ResponseEntity.ok(produtoService.updateById(id, produto));
     }
 
     @DeleteMapping("/{id}")

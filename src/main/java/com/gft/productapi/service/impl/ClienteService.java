@@ -9,6 +9,7 @@ import com.gft.productapi.mapper.ClienteMapper;
 import com.gft.productapi.repository.ClienteRepository;
 import com.gft.productapi.service.interfaces.ClienteServiceInterface;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,13 @@ public class ClienteService implements ClienteServiceInterface {
 	@Override
 	public Cliente findById(Long id) {
 		return clienteRepository.findById(id).orElseThrow(NoSuchElementException::new);
+	}
+
+	@Override
+	public Cliente updateById(Long id, Cliente cliente) {
+		Cliente clienteAtual = this.findById(id);
+		BeanUtils.copyProperties(cliente, clienteAtual, "id");
+		return this.save(clienteAtual);
 	}
 
 	@Override

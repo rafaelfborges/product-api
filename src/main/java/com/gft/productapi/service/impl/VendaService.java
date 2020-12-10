@@ -10,6 +10,7 @@ import com.gft.productapi.mapper.VendaMapper;
 import com.gft.productapi.repository.VendaRepository;
 import com.gft.productapi.service.interfaces.VendaServiceInterface;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,13 @@ public class VendaService implements VendaServiceInterface {
 	@Override
 	public Venda findById(Long id) {
 		return vendaRepository.findById(id).orElseThrow(NoSuchElementException::new);
+	}
+
+	@Override
+	public Venda updateById(Long id, Venda venda) {
+		Venda vendaAtual = this.findById(id);
+		BeanUtils.copyProperties(venda, vendaAtual, "id");
+		return this.save(vendaAtual);
 	}
 
 	@Override

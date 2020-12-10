@@ -11,6 +11,7 @@ import com.gft.productapi.mapper.ProdutoMapper;
 import com.gft.productapi.repository.ProdutoRepository;
 import com.gft.productapi.service.interfaces.ProdutoServiceInterface;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,13 @@ public class ProdutoService implements ProdutoServiceInterface {
 	@Override
 	public Produto findById(Long id) {
 		return produtoRepository.findById(id).orElseThrow(NoSuchElementException::new);
+	}
+
+	@Override
+	public Produto updateById(Long id, Produto produto) {
+		Produto produtoAtual = this.findById(id);
+		BeanUtils.copyProperties(produto, produtoAtual, "id");
+		return this.save(produtoAtual);
 	}
 
 	@Override

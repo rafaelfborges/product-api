@@ -7,6 +7,7 @@ import com.gft.productapi.entity.Empresa;
 import com.gft.productapi.repository.EmpresaRepository;
 import com.gft.productapi.service.interfaces.EmpresaServiceInterface;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,13 @@ public class EmpresaService implements EmpresaServiceInterface {
 	@Override
 	public Empresa findById(Long id) {
 		return empresaRepository.findById(id).orElseThrow(NoSuchElementException::new);
+	}
+
+	@Override
+	public Empresa updateById(Long id, Empresa empresa) {
+		Empresa empresaAtual = this.findById(id);
+		BeanUtils.copyProperties(empresa, empresaAtual, "id");
+		return this.save(empresaAtual);
 	}
 
 	@Override

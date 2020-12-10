@@ -55,7 +55,7 @@ public class VendaResource{
     @ApiOperation("Atualiza uma venda")
     public ResponseEntity<Venda> update(@ApiParam(value = "Id de uma venda") @PathVariable Long id, 
                                           @Valid @RequestBody Venda venda) {
-        return null;
+        return ResponseEntity.ok(vendaService.updateById(id, venda));
     }
 
     @DeleteMapping("/{id}")

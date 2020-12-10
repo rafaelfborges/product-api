@@ -11,4 +11,6 @@ public interface ServiceInterface<T> {
     T findById(Long id);
 
     void deleteById(Long id);
+
+    T updateById(Long id, T t);
 }

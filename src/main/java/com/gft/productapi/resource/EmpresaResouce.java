@@ -54,7 +54,7 @@ public class EmpresaResouce {
     @ApiOperation("Atualiza uma empresa")
     public ResponseEntity<Empresa> update(@ApiParam(value = "Id de uma empresa") @PathVariable Long id, 
                                           @Valid @RequestBody Empresa empresa) {
-        return null;
+        return ResponseEntity.ok(empresaService.updateById(id, empresa));
     }
 
     @DeleteMapping("/{id}")

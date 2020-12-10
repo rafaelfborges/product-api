@@ -55,7 +55,7 @@ public class ClienteResource {
     @ApiOperation("Atualiza um cliente")
     public ResponseEntity<Cliente> update(@ApiParam(value = "Id de um cliente") @PathVariable Long id, 
                                           @Valid @RequestBody Cliente cliente) {
-        return null;
+        return ResponseEntity.ok(clienteService.updateById(id, cliente));
     }
 
     @DeleteMapping("/{id}")
