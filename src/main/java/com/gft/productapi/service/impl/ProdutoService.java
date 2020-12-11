@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProdutoService implements ProdutoServiceInterface {
 
-    @Autowired
-	private ProdutoRepository produtoRepository;
-	
 	@Autowired
 	private ProdutoMapper produtoMapper;
-
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
 	@Override
 	public Produto save(Produto produto) {
 		return produtoRepository.save(produto);
@@ -35,8 +35,24 @@ public class ProdutoService implements ProdutoServiceInterface {
 	}
 
 	@Override
+	public List<ProdutoDto> findAllByOrderByNomeAsc() {
+		return produtoMapper.map(produtoRepository.findAllByOrderByNomeAsc());
+	}
+
+	@Override
+	public List<ProdutoDto> findAllByOrderByNomeDesc() {
+		return produtoMapper.map(produtoRepository.findAllByOrderByNomeDesc());
+	}
+
+	@Override
 	public Produto findById(Long id) {
 		return produtoRepository.findById(id).orElseThrow(NoSuchElementException::new);
+	}
+
+	@Override
+	public ProdutoDto findByNome(String nome) {
+		return produtoMapper.map(produtoRepository.findByNomeIgnoreCaseContaining(nome)
+											      .orElseThrow(NoSuchElementException::new));
 	}
 
 	@Override
@@ -64,14 +80,14 @@ public class ProdutoService implements ProdutoServiceInterface {
 	@Override
 	public BigDecimal somarTotalProdutos(List<Long> ids) {
 		return produtoRepository.findAllById(ids).stream()
-												 .map(p -> p.getValor())
+												 .map(Produto::getValor)
 								                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
 	@Override
 	public void diminuirEstoqueProdutos(List<Long> ids) {
 		List<Produto> produtos = produtoRepository.findAllById(ids);
-		produtos.forEach(p -> p.diminuirQuantidade());
+		produtos.forEach(Produto::diminuirQuantidade);
 		produtoRepository.saveAll(produtos);
 	}
 

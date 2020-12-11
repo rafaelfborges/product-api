@@ -39,6 +39,18 @@ public class ProdutoResource {
         return ResponseEntity.ok(produtoService.listarProdutos());
     }
 
+    @GetMapping("/asc")
+    @ApiOperation("Buscar todas os produtos em ordem ascendente")
+    public ResponseEntity<List<ProdutoDto>> findAllByOrderByNomeAsc() {
+        return ResponseEntity.ok(produtoService.findAllByOrderByNomeAsc());
+    }
+
+    @GetMapping("/desc")
+    @ApiOperation("Buscar todas os produtos em ordem descendente")
+    public ResponseEntity<List<ProdutoDto>> findAllByOrderByNomeDesc() {
+        return ResponseEntity.ok(produtoService.findAllByOrderByNomeDesc());
+    }
+
     @GetMapping("/{id}")
     @ApiOperation("Buscar um produto pelo id")
     public ResponseEntity<ProdutoDto> findById(@PathVariable Long id) {

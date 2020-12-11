@@ -4,13 +4,19 @@ import java.util.List;
 
 public interface ServiceInterface<T> {
     
-    T save(T t);
+    Object save(T t);
 
     List<T> findAll();
 
+    List<?> findAllByOrderByNomeAsc();
+
+    List<?> findAllByOrderByNomeDesc();
+
     T findById(Long id);
 
-    void deleteById(Long id);
+    Object findByNome(String nome);
 
     T updateById(Long id, T t);
+
+    void deleteById(Long id);
 }

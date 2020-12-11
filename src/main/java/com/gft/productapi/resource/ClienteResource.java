@@ -39,6 +39,18 @@ public class ClienteResource {
         return ResponseEntity.ok(clienteService.listarClientes());
     }
 
+    @GetMapping("/asc")
+    @ApiOperation("Buscar todas os clientes em ordem ascendente")
+    public ResponseEntity<List<ClienteDto>> findAllByOrderByNomeAsc() {
+        return ResponseEntity.ok(clienteService.findAllByOrderByNomeAsc());
+    }
+
+    @GetMapping("/desc")
+    @ApiOperation("Buscar todas os clientes em ordem descendente")
+    public ResponseEntity<List<ClienteDto>> findAllByOrderByNomeDesc() {
+        return ResponseEntity.ok(clienteService.findAllByOrderByNomeDesc());
+    }
+
     @GetMapping("/{id}")
     @ApiOperation("Buscar um cliente pelo id")
     public ResponseEntity<ClienteDto> findById(@PathVariable Long id) {

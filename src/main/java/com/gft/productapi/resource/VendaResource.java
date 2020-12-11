@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @Api(tags = "Vendas")
 @RequestMapping("/api/vendas")
-public class VendaResource{
+public class VendaResource {
     
     @Autowired
     private VendaService vendaService;
@@ -43,6 +43,18 @@ public class VendaResource{
     @ApiOperation("Buscar uma venda pelo id")
     public ResponseEntity<VendaDto> findById(@PathVariable Long id) {
         return ResponseEntity.ok(vendaService.listarVendaPorId(id));
+    }
+
+    @GetMapping("/asc")
+    @ApiOperation("Buscar todas as vendas em ordem ascendente")
+    public ResponseEntity<List<VendaDto>> findAllByOrderByNomeAsc() {
+        return ResponseEntity.ok(vendaService.findAllByOrderByNomeAsc());
+    }
+
+    @GetMapping("/desc")
+    @ApiOperation("Buscar todas as vendas em ordem descendente")
+    public ResponseEntity<List<VendaDto>> findAllByOrderByNomeDesc() {
+        return ResponseEntity.ok(vendaService.findAllByOrderByNomeDesc());
     }
 
     @PostMapping

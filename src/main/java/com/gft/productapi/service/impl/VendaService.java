@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import com.gft.productapi.dto.VendaDto;
+import com.gft.productapi.entity.Produto;
 import com.gft.productapi.entity.Venda;
 import com.gft.productapi.mapper.VendaMapper;
 import com.gft.productapi.repository.VendaRepository;
@@ -17,19 +18,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class VendaService implements VendaServiceInterface {
 
-    @Autowired
-	private VendaRepository vendaRepository;
-
-	@Autowired
-	private ProdutoService produtoService;
-	
 	@Autowired
 	private VendaMapper vendaMapper;
+	
+	@Autowired
+	private ProdutoService produtoService;
 
+	@Autowired
+	private VendaRepository vendaRepository;
+	
 	@Override
 	public Venda save(Venda venda) {
 		List<Long> idsProdutos = venda.getProdutos().stream()
-									 			    .map(p -> p.getId())
+									 			    .map(Produto::getId)
 												    .collect(Collectors.toList());
 
 		produtoService.verificarEstoqueProdutos(idsProdutos);
@@ -44,8 +45,24 @@ public class VendaService implements VendaServiceInterface {
 	}
 
 	@Override
+	public List<VendaDto> findAllByOrderByNomeAsc() {
+		return vendaMapper.map(vendaRepository.findAllByOrderByEmpresaNomeAsc());
+	}
+
+	@Override
+	public List<VendaDto> findAllByOrderByNomeDesc() {
+		return vendaMapper.map(vendaRepository.findAllByOrderByEmpresaNomeDesc());
+	}
+
+	@Override
 	public Venda findById(Long id) {
 		return vendaRepository.findById(id).orElseThrow(NoSuchElementException::new);
+	}
+
+	@Override
+	public VendaDto findByNome(String nome) {
+		return vendaMapper.map(vendaRepository.findVendaByClienteNomeContainingIgnoreCase(nome)
+											  .orElseThrow(NoSuchElementException::new));
 	}
 
 	@Override

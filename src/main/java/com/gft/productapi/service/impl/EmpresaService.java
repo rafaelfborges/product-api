@@ -28,8 +28,23 @@ public class EmpresaService implements EmpresaServiceInterface {
 	}
 
 	@Override
+	public List<Empresa> findAllByOrderByNomeAsc() {
+		return empresaRepository.findAllByOrderByNomeAsc();
+	}
+
+	@Override
+	public List<Empresa> findAllByOrderByNomeDesc() {
+		return empresaRepository.findAllByOrderByNomeDesc();
+	}
+
+	@Override
 	public Empresa findById(Long id) {
 		return empresaRepository.findById(id).orElseThrow(NoSuchElementException::new);
+	}
+
+	@Override
+	public Empresa findByNome(String nome) {
+		return empresaRepository.findByNomeIgnoreCaseContaining(nome).orElseThrow(NoSuchElementException::new);
 	}
 
 	@Override
@@ -42,5 +57,5 @@ public class EmpresaService implements EmpresaServiceInterface {
 	@Override
 	public void deleteById(Long id) {
 		empresaRepository.deleteById(id);
-	}    
+	}
 }

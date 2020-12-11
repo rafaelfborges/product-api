@@ -44,6 +44,18 @@ public class EmpresaResouce {
         return ResponseEntity.ok(empresaService.findById(id));
     }
 
+    @GetMapping("/asc")
+    @ApiOperation("Buscar todas as empresas em ordem ascendente")
+    public ResponseEntity<List<Empresa>> findAllByOrderByNomeAsc() {
+        return ResponseEntity.ok(empresaService.findAllByOrderByNomeAsc());
+    }
+
+    @GetMapping("/desc")
+    @ApiOperation("Buscar todas as empresas em ordem descendente")
+    public ResponseEntity<List<Empresa>> findAllByOrderByNomeDesc() {
+        return ResponseEntity.ok(empresaService.findAllByOrderByNomeDesc());
+    }
+
     @PostMapping
     @ApiOperation("Adiciona uma nova empresa")
     public ResponseEntity<Empresa> create(@Valid @RequestBody Empresa empresa) {

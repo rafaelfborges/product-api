@@ -27,6 +27,7 @@ import lombok.EqualsAndHashCode;
 public class Empresa {
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

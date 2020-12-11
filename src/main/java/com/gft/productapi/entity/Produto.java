@@ -2,7 +2,6 @@ package com.gft.productapi.entity;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +29,6 @@ public class Produto {
     private String nome;
 
     @NotBlank
-    @Column(unique = true)
     private String codigoProduto;
 
     @NotNull

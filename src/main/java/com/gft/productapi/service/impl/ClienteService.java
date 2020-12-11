@@ -33,8 +33,24 @@ public class ClienteService implements ClienteServiceInterface {
 	}
 
 	@Override
+	public List<ClienteDto> findAllByOrderByNomeAsc() {
+		return clienteMapper.map(clienteRepository.findAllByOrderByNomeAsc());
+	}
+
+	@Override
+	public List<ClienteDto> findAllByOrderByNomeDesc() {
+		return clienteMapper.map(clienteRepository.findAllByOrderByNomeDesc());
+	}
+
+	@Override
 	public Cliente findById(Long id) {
 		return clienteRepository.findById(id).orElseThrow(NoSuchElementException::new);
+	}
+
+	@Override
+	public ClienteDto findByNome(String nome) {
+		return clienteMapper.map(clienteRepository.findByNomeIgnoreCaseContaining(nome)
+												  .orElseThrow(NoSuchElementException::new));
 	}
 
 	@Override
