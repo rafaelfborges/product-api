@@ -20,7 +20,7 @@ public interface ProdutoMapper {
     @Mapping(source = "categoria", target = "categoria")
     @Mapping(source = "imagem", target = "imagem")
     @Mapping(source = "quantidade", target = "quantidade")
-    @Mapping(source = "empresa", target = "empresa")
+    @Mapping(source = "fornecedor", target = "fornecedor")
     ProdutoDto map(Produto produto);
 
     List<ProdutoDto> map(List<Produto> produtos);

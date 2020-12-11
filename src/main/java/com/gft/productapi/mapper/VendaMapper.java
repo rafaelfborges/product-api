@@ -12,7 +12,7 @@ import org.mapstruct.Mapping;
 public interface VendaMapper {
     
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "empresa", target = "empresa")
+    @Mapping(source = "fornecedor", target = "fornecedor")
     @Mapping(source = "cliente", target = "cliente")
     @Mapping(source = "produtos", target = "produtos")
     @Mapping(source = "totalCompra", target = "totalCompra")

@@ -14,10 +14,10 @@ import lombok.Setter;
 @Getter @Setter
 public class VendaDto {
     private Long id;
-    private EmpresaDto empresa;
+    private FornecedorDto fornecedor;
     private ClienteDto cliente;
 
-    @JsonIgnoreProperties({"empresa", "quantidade"})
+    @JsonIgnoreProperties({"fornecedor", "quantidade"})
     private Set<Produto> produtos;
 
     private BigDecimal totalCompra;

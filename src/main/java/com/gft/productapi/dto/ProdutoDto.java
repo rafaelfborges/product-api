@@ -16,5 +16,5 @@ public class ProdutoDto {
     private String categoria;
     private String imagem;
     private Long quantidade;
-    private EmpresaDto empresa;
+    private FornecedorDto fornecedor;
 }

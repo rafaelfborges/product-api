@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class EmpresaDto {
+public class FornecedorDto {
     private Long id;
     private String nome;
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface VendaRepository extends JpaRepository<Venda, Long> {
-    List<Venda> findAllByOrderByEmpresaNomeAsc();
-    List<Venda> findAllByOrderByEmpresaNomeDesc();
+    List<Venda> findAllByOrderByFornecedorNomeAsc();
+    List<Venda> findAllByOrderByFornecedorNomeDesc();
     Optional<Venda> findVendaByClienteNomeContainingIgnoreCase(String nome);
 }

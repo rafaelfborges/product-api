@@ -46,12 +46,12 @@ public class VendaService implements VendaServiceInterface {
 
 	@Override
 	public List<VendaDto> findAllByOrderByNomeAsc() {
-		return vendaMapper.map(vendaRepository.findAllByOrderByEmpresaNomeAsc());
+		return vendaMapper.map(vendaRepository.findAllByOrderByFornecedorNomeAsc());
 	}
 
 	@Override
 	public List<VendaDto> findAllByOrderByNomeDesc() {
-		return vendaMapper.map(vendaRepository.findAllByOrderByEmpresaNomeDesc());
+		return vendaMapper.map(vendaRepository.findAllByOrderByFornecedorNomeDesc());
 	}
 
 	@Override

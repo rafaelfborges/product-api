@@ -35,13 +35,13 @@ public class Venda {
 
     @NotNull
     @ManyToOne
-    private Empresa empresa;
+    private Fornecedor fornecedor;
 
     @NotNull
     @ManyToOne
     private Cliente cliente;
 
-    @JsonIgnoreProperties("empresa")
+    @JsonIgnoreProperties("fornecedor")
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Produto> produtos = new HashSet<>();
 

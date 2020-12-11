@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @Table
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Empresa {
+public class Fornecedor {
 
     @Id
     @EqualsAndHashCode.Include
@@ -39,7 +39,7 @@ public class Empresa {
     @Column(unique = true)
     private String cnpj;
 
-    @JsonIgnoreProperties("empresa")
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnoreProperties("fornecedor")
+    @OneToMany(mappedBy = "fornecedor", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Produto> produtos = new HashSet<>();
 }
