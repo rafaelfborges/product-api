@@ -11,8 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -42,7 +42,7 @@ public class Venda {
     private Cliente cliente;
 
     @JsonIgnoreProperties("fornecedor")
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Produto> produtos = new HashSet<>();
 
     @Column(name = "total_compra")
