@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -34,12 +35,16 @@ public class FornecedorResouce {
 
     @GetMapping
     @ApiOperation("Listar todas os fornecedores")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<Fornecedor>> findAll() {
         return ResponseEntity.ok(fornecedorService.findAll());
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar um fornecedor pelo id")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Fornecedor> findById(@ApiParam(value = "Id de um fornecedor", example = "1")
                                             @PathVariable Long id) {
         return ResponseEntity.ok(fornecedorService.findById(id));
@@ -47,6 +52,8 @@ public class FornecedorResouce {
 
     @GetMapping("/nome/{nome}")
     @ApiOperation("Buscar um fornecedor pelo nome")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Fornecedor> findByNome(@ApiParam(value = "Nome de um fornecedor", example = "Amazon")
                                               @PathVariable String nome) {
         return ResponseEntity.ok(fornecedorService.findByNome(nome));
@@ -54,24 +61,32 @@ public class FornecedorResouce {
 
     @GetMapping("/asc")
     @ApiOperation("Buscar todas os fornecedores em ordem ascendente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<Fornecedor>> findAllByOrderByNomeAsc() {
         return ResponseEntity.ok(fornecedorService.findAllByOrderByNomeAsc());
     }
 
     @GetMapping("/desc")
     @ApiOperation("Buscar todas os fornecedores em ordem descendente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<Fornecedor>> findAllByOrderByNomeDesc() {
         return ResponseEntity.ok(fornecedorService.findAllByOrderByNomeDesc());
     }
 
     @PostMapping
     @ApiOperation("Adiciona um novo fornecedor")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Fornecedor> create(@Valid @RequestBody Fornecedor fornecedor) {
         return ResponseEntity.status(HttpStatus.CREATED).body(fornecedorService.save(fornecedor));
     }
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza um fornecedor")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Fornecedor> update(@ApiParam(value = "Id de um fornecedor", example = "1") @PathVariable Long id,
                                              @Valid @RequestBody Fornecedor fornecedor) {
         return ResponseEntity.ok(fornecedorService.updateById(id, fornecedor));
@@ -80,6 +95,8 @@ public class FornecedorResouce {
     @DeleteMapping("/{id}")
     @ApiOperation("Remove um fornecedor")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public void remove(@PathVariable Long id) {
         fornecedorService.deleteById(id);
     }

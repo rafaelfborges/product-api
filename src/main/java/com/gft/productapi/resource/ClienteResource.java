@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -35,24 +36,32 @@ public class ClienteResource {
 
     @GetMapping
     @ApiOperation("Listar todas os clientes")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<ClienteDto>> findAll() {
         return ResponseEntity.ok(clienteService.listarClientes());
     }
 
     @GetMapping("/asc")
     @ApiOperation("Buscar todas os clientes em ordem ascendente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<ClienteDto>> findAllByOrderByNomeAsc() {
         return ResponseEntity.ok(clienteService.findAllByOrderByNomeAsc());
     }
 
     @GetMapping("/desc")
     @ApiOperation("Buscar todas os clientes em ordem descendente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<ClienteDto>> findAllByOrderByNomeDesc() {
         return ResponseEntity.ok(clienteService.findAllByOrderByNomeDesc());
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar um cliente pelo id")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<ClienteDto> findById(@ApiParam(value = "Id de um cliente", example = "1") 
                                                @PathVariable Long id) {
         return ResponseEntity.ok(clienteService.listarClientePorId(id));
@@ -60,6 +69,8 @@ public class ClienteResource {
 
     @GetMapping("/nome/{nome}")
     @ApiOperation("Buscar um cliente pelo nome")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<ClienteDto> findByNome(@ApiParam(value = "Nome de um cliente", example = "Rafael") 
                                                  @PathVariable String nome) {
         return ResponseEntity.ok(clienteService.findByNome(nome));
@@ -67,12 +78,16 @@ public class ClienteResource {
 
     @PostMapping
     @ApiOperation("Adiciona um novo cliente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente cliente) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(cliente));
     }
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza um cliente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Cliente> update(@ApiParam(value = "Id de um cliente", example = "1") @PathVariable Long id, 
                                           @Valid @RequestBody Cliente cliente) {
         return ResponseEntity.ok(clienteService.updateById(id, cliente));
@@ -81,6 +96,8 @@ public class ClienteResource {
     @DeleteMapping("/{id}")
     @ApiOperation("Remove um cliente")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public void remove(@PathVariable Long id) {
         clienteService.deleteById(id);
     }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -35,24 +36,32 @@ public class ProdutoResource {
 
     @GetMapping
     @ApiOperation("Listar todas os produtos")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<ProdutoDto>> findAll() {
         return ResponseEntity.ok(produtoService.listarProdutos());
     }
 
     @GetMapping("/asc")
     @ApiOperation("Buscar todas os produtos em ordem ascendente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<ProdutoDto>> findAllByOrderByNomeAsc() {
         return ResponseEntity.ok(produtoService.findAllByOrderByNomeAsc());
     }
 
     @GetMapping("/desc")
     @ApiOperation("Buscar todas os produtos em ordem descendente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<ProdutoDto>> findAllByOrderByNomeDesc() {
         return ResponseEntity.ok(produtoService.findAllByOrderByNomeDesc());
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar um produto pelo id")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<ProdutoDto> findById(@ApiParam(value = "Id de um produto", example = "1") 
                                                @PathVariable Long id) {
         return ResponseEntity.ok(produtoService.listarProdutoPorId(id));
@@ -60,6 +69,8 @@ public class ProdutoResource {
 
     @GetMapping("/nome/{nome}")
     @ApiOperation("Buscar um produto pelo nome")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<ProdutoDto> findByNome(@ApiParam(value = "Nome de um produto", example = "Notebook") 
                                                  @PathVariable String nome) {
         return ResponseEntity.ok(produtoService.findByNome(nome));
@@ -67,12 +78,16 @@ public class ProdutoResource {
 
     @PostMapping
     @ApiOperation("Adiciona um novo produto")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Produto> create(@Valid @RequestBody Produto produto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(produto));
     }
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza um produto")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Produto> update(@ApiParam(value = "Id de um produto", example = "1") @PathVariable Long id, 
                                           @Valid @RequestBody Produto produto) {
         return ResponseEntity.ok(produtoService.updateById(id, produto));
@@ -80,6 +95,8 @@ public class ProdutoResource {
 
     @DeleteMapping("/{id}")
     @ApiOperation("Remove um produto")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable Long id) { 
         produtoService.deleteById(id);

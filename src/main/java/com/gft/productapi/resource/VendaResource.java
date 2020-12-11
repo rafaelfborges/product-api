@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -35,12 +36,16 @@ public class VendaResource {
 
     @GetMapping
     @ApiOperation("Listar todas as vendas")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<VendaDto>> findAll() {
         return ResponseEntity.ok(vendaService.listarVendas());
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar uma venda pelo id")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<VendaDto> findById(@ApiParam(value = "Id de uma venda", example = "1") 
                                              @PathVariable Long id) {
         return ResponseEntity.ok(vendaService.listarVendaPorId(id));
@@ -48,6 +53,8 @@ public class VendaResource {
 
     @GetMapping("/nome/{nome}")
     @ApiOperation("Buscar uma venda pelo nome do fornecedor")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<VendaDto> findByNome(@ApiParam(value = "Nome de um fornecedor", example = "1") 
                                                @PathVariable String nome) {
         return ResponseEntity.ok(vendaService.findByNome(nome));
@@ -55,24 +62,32 @@ public class VendaResource {
 
     @GetMapping("/asc")
     @ApiOperation("Buscar todas as vendas em ordem ascendente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<VendaDto>> findAllByOrderByNomeAsc() {
         return ResponseEntity.ok(vendaService.findAllByOrderByNomeAsc());
     }
 
     @GetMapping("/desc")
     @ApiOperation("Buscar todas as vendas em ordem descendente")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<List<VendaDto>> findAllByOrderByNomeDesc() {
         return ResponseEntity.ok(vendaService.findAllByOrderByNomeDesc());
     }
 
     @PostMapping
     @ApiOperation("Adicionar uma nova venda")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Venda> create(@Valid @RequestBody Venda venda) {
         return ResponseEntity.status(HttpStatus.CREATED).body(vendaService.save(venda));
     }
 
     @PutMapping("/{id}")
     @ApiOperation("Atualiza uma venda")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public ResponseEntity<Venda> update(@ApiParam(value = "Id de uma venda", example = "1") @PathVariable Long id, 
                                           @Valid @RequestBody Venda venda) {
         return ResponseEntity.ok(vendaService.updateById(id, venda));
@@ -81,6 +96,8 @@ public class VendaResource {
     @DeleteMapping("/{id}")
     @ApiOperation("Remove uma venda")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
     public void remove(@PathVariable Long id) {
         vendaService.deleteById(id);
     }
