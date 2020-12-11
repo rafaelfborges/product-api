@@ -1,10 +1,5 @@
 package com.gft.productapi.openapi;
 
-import com.gft.productapi.dto.ClienteDto;
-import com.gft.productapi.dto.FornecedorDto;
-import com.gft.productapi.dto.ProdutoDto;
-import com.gft.productapi.dto.VendaDto;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -27,7 +22,6 @@ public class SpringFoxConfig implements WebMvcConfigurer {
     @Bean
     public Docket apiDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .ignoredParameterTypes(ClienteDto.class, FornecedorDto.class, ProdutoDto.class, VendaDto.class)
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("com.gft.productapi"))
                     .paths(PathSelectors.any())
