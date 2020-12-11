@@ -48,6 +48,7 @@ public class Venda {
     @Column(name = "total_compra")
     private BigDecimal totalCompra;
 
+    @NotNull
     @Column(name = "data_compra")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCompra;

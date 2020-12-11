@@ -1,7 +1,6 @@
 package com.gft.productapi.service.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import com.gft.productapi.dto.ClienteDto;
 import com.gft.productapi.entity.Cliente;
@@ -11,6 +10,7 @@ import com.gft.productapi.service.interfaces.ClienteServiceInterface;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -44,13 +44,13 @@ public class ClienteService implements ClienteServiceInterface {
 
 	@Override
 	public Cliente findById(Long id) {
-		return clienteRepository.findById(id).orElseThrow(NoSuchElementException::new);
+		return clienteRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
 
 	@Override
 	public ClienteDto findByNome(String nome) {
 		return clienteMapper.map(clienteRepository.findByNomeIgnoreCaseContaining(nome)
-												  .orElseThrow(NoSuchElementException::new));
+												  .orElseThrow(() -> new EmptyResultDataAccessException(1)));
 	}
 
 	@Override

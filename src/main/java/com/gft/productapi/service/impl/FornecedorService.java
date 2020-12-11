@@ -1,7 +1,6 @@
 package com.gft.productapi.service.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import com.gft.productapi.entity.Fornecedor;
 import com.gft.productapi.repository.FornecedorRepository;
@@ -9,6 +8,7 @@ import com.gft.productapi.service.interfaces.FornecedorServiceInterface;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,12 +39,14 @@ public class FornecedorService implements FornecedorServiceInterface {
 
 	@Override
 	public Fornecedor findById(Long id) {
-		return fornecedorRepository.findById(id).orElseThrow(NoSuchElementException::new);
+		return fornecedorRepository.findById(id)
+								   .orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
 
 	@Override
 	public Fornecedor findByNome(String nome) {
-		return fornecedorRepository.findByNomeIgnoreCaseContaining(nome).orElseThrow(NoSuchElementException::new);
+		return fornecedorRepository.findByNomeIgnoreCaseContaining(nome)
+								   .orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
 
 	@Override

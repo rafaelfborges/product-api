@@ -1,7 +1,6 @@
 package com.gft.productapi.service.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import com.gft.productapi.dto.VendaDto;
@@ -13,6 +12,7 @@ import com.gft.productapi.service.interfaces.VendaServiceInterface;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -56,13 +56,13 @@ public class VendaService implements VendaServiceInterface {
 
 	@Override
 	public Venda findById(Long id) {
-		return vendaRepository.findById(id).orElseThrow(NoSuchElementException::new);
+		return vendaRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
 
 	@Override
 	public VendaDto findByNome(String nome) {
 		return vendaMapper.map(vendaRepository.findVendaByClienteNomeContainingIgnoreCase(nome)
-											  .orElseThrow(NoSuchElementException::new));
+											  .orElseThrow(() -> new EmptyResultDataAccessException(1)));
 	}
 
 	@Override
