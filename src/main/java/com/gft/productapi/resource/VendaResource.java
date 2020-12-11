@@ -41,8 +41,16 @@ public class VendaResource {
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar uma venda pelo id")
-    public ResponseEntity<VendaDto> findById(@PathVariable Long id) {
+    public ResponseEntity<VendaDto> findById(@ApiParam(value = "Id de uma venda", example = "1") 
+                                             @PathVariable Long id) {
         return ResponseEntity.ok(vendaService.listarVendaPorId(id));
+    }
+
+    @GetMapping("/nome/{nome}")
+    @ApiOperation("Buscar uma venda pelo nome do fornecedor")
+    public ResponseEntity<VendaDto> findByNome(@ApiParam(value = "Nome de um fornecedor", example = "1") 
+                                               @PathVariable String nome) {
+        return ResponseEntity.ok(vendaService.findByNome(nome));
     }
 
     @GetMapping("/asc")

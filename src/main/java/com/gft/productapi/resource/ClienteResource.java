@@ -53,8 +53,16 @@ public class ClienteResource {
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar um cliente pelo id")
-    public ResponseEntity<ClienteDto> findById(@PathVariable Long id) {
+    public ResponseEntity<ClienteDto> findById(@ApiParam(value = "Id de um cliente", example = "1") 
+                                               @PathVariable Long id) {
         return ResponseEntity.ok(clienteService.listarClientePorId(id));
+    }
+
+    @GetMapping("/nome/{nome}")
+    @ApiOperation("Buscar um cliente pelo nome")
+    public ResponseEntity<ClienteDto> findByNome(@ApiParam(value = "Nome de um cliente", example = "Rafael") 
+                                                 @PathVariable String nome) {
+        return ResponseEntity.ok(clienteService.findByNome(nome));
     }
 
     @PostMapping

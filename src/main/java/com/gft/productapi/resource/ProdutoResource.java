@@ -53,8 +53,16 @@ public class ProdutoResource {
 
     @GetMapping("/{id}")
     @ApiOperation("Buscar um produto pelo id")
-    public ResponseEntity<ProdutoDto> findById(@PathVariable Long id) {
+    public ResponseEntity<ProdutoDto> findById(@ApiParam(value = "Id de um produto", example = "1") 
+                                               @PathVariable Long id) {
         return ResponseEntity.ok(produtoService.listarProdutoPorId(id));
+    }
+
+    @GetMapping("/nome/{nome}")
+    @ApiOperation("Buscar um produto pelo nome")
+    public ResponseEntity<ProdutoDto> findByNome(@ApiParam(value = "Nome de um produto", example = "Notebook") 
+                                                 @PathVariable String nome) {
+        return ResponseEntity.ok(produtoService.findByNome(nome));
     }
 
     @PostMapping
