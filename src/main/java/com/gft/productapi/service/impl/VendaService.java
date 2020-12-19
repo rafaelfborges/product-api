@@ -3,7 +3,8 @@ package com.gft.productapi.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.gft.productapi.dto.VendaDto;
+import com.gft.productapi.dto.request.VendaRequestDto;
+import com.gft.productapi.dto.response.VendaResponseDto;
 import com.gft.productapi.entity.Produto;
 import com.gft.productapi.entity.Venda;
 import com.gft.productapi.mapper.VendaMapper;
@@ -13,22 +14,25 @@ import com.gft.productapi.service.interfaces.VendaServiceInterface;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class VendaService implements VendaServiceInterface {
 
-	@Autowired
-	private VendaMapper vendaMapper;
-	
-	@Autowired
-	private ProdutoService produtoService;
-
-	@Autowired
-	private VendaRepository vendaRepository;
+	private final VendaMapper mapper;
+	private final VendaRepository repository;
+	private final ProdutoService produtoService;
 	
 	@Override
-	public Venda save(Venda venda) {
+	public VendaResponseDto save(VendaRequestDto vendaDto) {
+		Venda venda = mapper.mapRequest(vendaDto);
+
 		List<Long> idsProdutos = venda.getProdutos().stream()
 									 			    .map(Produto::getId)
 												    .collect(Collectors.toList());
@@ -36,54 +40,38 @@ public class VendaService implements VendaServiceInterface {
 		produtoService.verificarEstoqueProdutos(idsProdutos);
 		venda.setTotalCompra(produtoService.somarTotalProdutos(idsProdutos));
 		produtoService.diminuirEstoqueProdutos(idsProdutos);
-		return vendaRepository.save(venda);
+		return mapper.mapResponse(repository.save(venda));
 	}
 
 	@Override
-	public List<Venda> findAll() {
-		return vendaRepository.findAll();
+	public Page<VendaResponseDto> findAll(Pageable pageable) {
+		Page<Venda> vendas = repository.findAll(pageable);
+		return new PageImpl<>(mapper.mapResponse(vendas.getContent()), 
+							  vendas.getPageable(),
+							  vendas.getTotalElements());
 	}
 
 	@Override
-	public List<VendaDto> findAllByOrderByNomeAsc() {
-		return vendaMapper.map(vendaRepository.findAllByOrderByFornecedorNomeAsc());
+	public VendaResponseDto findById(Long id) {
+		return mapper.mapResponse(repository.findById(id)
+											.orElseThrow(() -> new EmptyResultDataAccessException(1)));
 	}
 
 	@Override
-	public List<VendaDto> findAllByOrderByNomeDesc() {
-		return vendaMapper.map(vendaRepository.findAllByOrderByFornecedorNomeDesc());
+	public VendaResponseDto findByNome(String nome) {
+		return mapper.mapResponse(repository.findVendaByClienteNomeContainingIgnoreCase(nome)
+											.orElseThrow(() -> new EmptyResultDataAccessException(1)));
 	}
 
 	@Override
-	public Venda findById(Long id) {
-		return vendaRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
-	}
-
-	@Override
-	public VendaDto findByNome(String nome) {
-		return vendaMapper.map(vendaRepository.findVendaByClienteNomeContainingIgnoreCase(nome)
-											  .orElseThrow(() -> new EmptyResultDataAccessException(1)));
-	}
-
-	@Override
-	public Venda updateById(Long id, Venda venda) {
-		Venda vendaAtual = this.findById(id);
-		BeanUtils.copyProperties(venda, vendaAtual, "id");
-		return this.save(vendaAtual);
+	public VendaResponseDto updateById(Long id, VendaRequestDto vendaDto) {
+		Venda venda = repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+		BeanUtils.copyProperties(vendaDto, venda, "id");
+		return mapper.mapResponse(repository.save(venda));
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		vendaRepository.deleteById(id);
-	}
-
-	@Override
-	public List<VendaDto> listarVendas() {
-		return vendaMapper.map(this.findAll());
-	}
-
-	@Override
-	public VendaDto listarVendaPorId(Long id) {
-		return vendaMapper.map(this.findById(id));
+		repository.deleteById(id);
 	}
 }

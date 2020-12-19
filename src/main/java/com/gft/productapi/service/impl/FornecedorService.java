@@ -1,63 +1,65 @@
 package com.gft.productapi.service.impl;
 
-import java.util.List;
-
+import com.gft.productapi.dto.request.FornecedorRequestDto;
+import com.gft.productapi.dto.response.FornecedorResponseDto;
 import com.gft.productapi.entity.Fornecedor;
+import com.gft.productapi.mapper.FornecedorMapper;
 import com.gft.productapi.repository.FornecedorRepository;
 import com.gft.productapi.service.interfaces.FornecedorServiceInterface;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class FornecedorService implements FornecedorServiceInterface {
-    
-    @Autowired
-    private FornecedorRepository fornecedorRepository;
+	
+	private final FornecedorMapper mapper;
+    private final FornecedorRepository repository;
 
 	@Override
-	public Fornecedor save(Fornecedor fornecedor) {
-		return fornecedorRepository.save(fornecedor);
+	public FornecedorResponseDto save(FornecedorRequestDto fornecedorDto) {
+		Fornecedor fornecedor = mapper.mapRequest(fornecedorDto);
+		return mapper.mapResponse(repository.save(fornecedor));
 	}
 
 	@Override
-	public List<Fornecedor> findAll() {
-		return fornecedorRepository.findAll();
+	public Page<FornecedorResponseDto> findAll(Pageable pageable) {
+		Page<Fornecedor> fornecedores = repository.findAll(pageable);
+		return new PageImpl<>(mapper.mapResponse(fornecedores.getContent()),
+							  fornecedores.getPageable(), 
+							  fornecedores.getTotalElements());
 	}
 
 	@Override
-	public List<Fornecedor> findAllByOrderByNomeAsc() {
-		return fornecedorRepository.findAllByOrderByNomeAsc();
+	public FornecedorResponseDto findById(Long id) {
+		return mapper.mapResponse(repository.findById(id)
+											.orElseThrow(() -> new EmptyResultDataAccessException(1)));
 	}
 
 	@Override
-	public List<Fornecedor> findAllByOrderByNomeDesc() {
-		return fornecedorRepository.findAllByOrderByNomeDesc();
+	public FornecedorResponseDto findByNome(String nome) {
+		Fornecedor fornecedor = repository.findByNomeIgnoreCaseContaining(nome)
+										  .orElseThrow(() -> new EmptyResultDataAccessException(1));
+		return mapper.mapResponse(fornecedor);
 	}
 
 	@Override
-	public Fornecedor findById(Long id) {
-		return fornecedorRepository.findById(id)
-								   .orElseThrow(() -> new EmptyResultDataAccessException(1));
-	}
-
-	@Override
-	public Fornecedor findByNome(String nome) {
-		return fornecedorRepository.findByNomeIgnoreCaseContaining(nome)
-								   .orElseThrow(() -> new EmptyResultDataAccessException(1));
-	}
-
-	@Override
-	public Fornecedor updateById(Long id, Fornecedor fornecedor) {
-		Fornecedor fornecedorAtual = this.findById(id);
-		BeanUtils.copyProperties(fornecedor, fornecedorAtual, "id");
-		return this.save(fornecedorAtual);
+	public FornecedorResponseDto updateById(Long id, FornecedorRequestDto fornecedorDto) {
+		Fornecedor fornecedor = repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+		BeanUtils.copyProperties(fornecedorDto, fornecedor, "id");
+		return mapper.mapResponse(repository.save(fornecedor));
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		fornecedorRepository.deleteById(id);
+		repository.deleteById(id);
 	}
 }
