@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.gft</groupId>
 	<artifactId>product-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.2 Beta</version>
 	<name>product-api</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -124,8 +124,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-			<!-- Map Struct Processor -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -134,10 +132,18 @@
 					<source>11</source>
 					<target>11</target>
 					<annotationProcessorPaths>
+						<!-- Mapstruct processor -->
 						<path>
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
 							<version>${org.mapstruct.version}</version>
+						</path>
+
+						<!-- Lombok processor -->
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
