@@ -45,13 +45,13 @@ public class ProdutoService implements ProdutoServiceInterface {
 	@Override
 	public ProdutoResponseDto findById(Long id) {
 		return mapper.mapResponse(repository.findById(id)
-													   .orElseThrow(() -> new EmptyResultDataAccessException(1)));
+										    .orElseThrow(() -> new EmptyResultDataAccessException(1)));
 	}
 
 	@Override
 	public ProdutoResponseDto findByNome(String nome) {
 		return mapper.mapResponse(repository.findByNomeIgnoreCaseContaining(nome)
-													   .orElseThrow(() -> new EmptyResultDataAccessException(1)));
+											.orElseThrow(() -> new EmptyResultDataAccessException(1)));
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class ProdutoService implements ProdutoServiceInterface {
 	@Override
 	public BigDecimal somarTotalProdutos(List<Long> ids) {
 		return repository.findAllById(ids).stream()
-												 .map(Produto::getValor)
-								                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+										  .map(Produto::getValor)
+								          .reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
 	@Override
