@@ -3,15 +3,11 @@ package com.gft.productapi.service.interfaces;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.gft.productapi.dto.ProdutoDto;
-import com.gft.productapi.entity.Produto;
+import com.gft.productapi.dto.request.ProdutoRequestDto;
+import com.gft.productapi.dto.response.ProdutoResponseDto;
 
-public interface ProdutoServiceInterface extends ServiceInterface<Produto> {
+public interface ProdutoServiceInterface extends ServiceInterface<ProdutoResponseDto, ProdutoRequestDto> {
     
-    List<ProdutoDto> listarProdutos();
-
-    ProdutoDto listarProdutoPorId(Long id);
-
     BigDecimal somarTotalProdutos(List<Long> ids);
 
     void diminuirEstoqueProdutos(List<Long> ids);

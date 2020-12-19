@@ -1,13 +1,9 @@
 package com.gft.productapi.service.interfaces;
 
-import java.util.List;
 
-import com.gft.productapi.dto.ClienteDto;
-import com.gft.productapi.entity.Cliente;
+import com.gft.productapi.dto.request.ClienteRequestDto;
+import com.gft.productapi.dto.response.ClienteResponseDto;
 
-public interface ClienteServiceInterface extends ServiceInterface<Cliente> {
+public interface ClienteServiceInterface extends ServiceInterface<ClienteResponseDto, ClienteRequestDto> {
     
-    List<ClienteDto> listarClientes();
-
-    ClienteDto listarClientePorId(Long id);
 }

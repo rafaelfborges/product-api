@@ -1,22 +1,19 @@
 package com.gft.productapi.service.interfaces;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-public interface ServiceInterface<T> {
+public interface ServiceInterface<T, S> {
     
-    Object save(T t);
+    T save(S t);
 
-    List<T> findAll();
-
-    List<?> findAllByOrderByNomeAsc();
-
-    List<?> findAllByOrderByNomeDesc();
+    Page<T> findAll(Pageable pageable);
 
     T findById(Long id);
 
-    Object findByNome(String nome);
+    T findByNome(String nome);
 
-    T updateById(Long id, T t);
+    T updateById(Long id, S t);
 
     void deleteById(Long id);
 }
