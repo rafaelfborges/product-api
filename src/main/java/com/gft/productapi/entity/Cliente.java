@@ -14,12 +14,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@Table
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "clientes")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Cliente {
     

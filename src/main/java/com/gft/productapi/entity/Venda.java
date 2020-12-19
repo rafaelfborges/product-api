@@ -19,12 +19,16 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@Table
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "vendas")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Venda {
     

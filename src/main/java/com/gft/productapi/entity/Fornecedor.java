@@ -13,17 +13,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import org.hibernate.validator.constraints.br.CNPJ;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@Table
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "fornecedores")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Fornecedor {
 
     @Id
