@@ -11,7 +11,7 @@ CREATE TABLE `vendas` (
   CONSTRAINT `FK50murhuotq9h2dnxej317jjiy` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `venda_produto` (
+CREATE TABLE `vendas_produtos` (
   `venda_id` bigint NOT NULL,
   `produtos_id` bigint NOT NULL,
   PRIMARY KEY (`venda_id`,`produtos_id`),
