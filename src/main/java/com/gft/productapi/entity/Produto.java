@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,11 +38,13 @@ public class Produto {
     private String codigoProduto;
 
     @NotNull
+    @Positive
     private BigDecimal valor;
 
     @NotNull
     private Boolean promocao;
 
+    @PositiveOrZero
     private BigDecimal valorPromo;
 
     @NotBlank
@@ -50,6 +54,7 @@ public class Produto {
     private String imagem;
 
     @NotNull
+    @PositiveOrZero
     private Long quantidade;
 
     @NotNull
