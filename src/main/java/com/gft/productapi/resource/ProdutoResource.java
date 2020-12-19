@@ -1,14 +1,15 @@
 package com.gft.productapi.resource;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
-import com.gft.productapi.dto.ProdutoDto;
-import com.gft.productapi.entity.Produto;
+import com.gft.productapi.dto.request.ProdutoRequestDto;
+import com.gft.productapi.dto.response.ProdutoResponseDto;
+import com.gft.productapi.resource.docs.ProdutoResourceDocs;
 import com.gft.productapi.service.impl.ProdutoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,82 +22,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-
 @RestController
-@Api(tags = "Produtos")
 @RequestMapping("/api/produtos")
-public class ProdutoResource {
+public class ProdutoResource implements ProdutoResourceDocs {
 
     @Autowired
     private ProdutoService produtoService;
 
     @GetMapping
-    @ApiOperation("Listar todas os produtos")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    public ResponseEntity<List<ProdutoDto>> findAll() {
-        return ResponseEntity.ok(produtoService.listarProdutos());
-    }
-
-    @GetMapping("/asc")
-    @ApiOperation("Buscar todas os produtos em ordem ascendente")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    public ResponseEntity<List<ProdutoDto>> findAllByOrderByNomeAsc() {
-        return ResponseEntity.ok(produtoService.findAllByOrderByNomeAsc());
-    }
-
-    @GetMapping("/desc")
-    @ApiOperation("Buscar todas os produtos em ordem descendente")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    public ResponseEntity<List<ProdutoDto>> findAllByOrderByNomeDesc() {
-        return ResponseEntity.ok(produtoService.findAllByOrderByNomeDesc());
+    public ResponseEntity<Page<ProdutoResponseDto>> findAll(Pageable pageable) {
+        return ResponseEntity.ok(produtoService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
-    @ApiOperation("Buscar um produto pelo id")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    public ResponseEntity<ProdutoDto> findById(@ApiParam(value = "Id de um produto", example = "1") 
-                                               @PathVariable Long id) {
-        return ResponseEntity.ok(produtoService.listarProdutoPorId(id));
+    public ResponseEntity<ProdutoResponseDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(produtoService.findById(id));
     }
 
     @GetMapping("/nome/{nome}")
-    @ApiOperation("Buscar um produto pelo nome")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    public ResponseEntity<ProdutoDto> findByNome(@ApiParam(value = "Nome de um produto", example = "Notebook") 
-                                                 @PathVariable String nome) {
+    public ResponseEntity<ProdutoResponseDto> findByNome(@PathVariable String nome) {
         return ResponseEntity.ok(produtoService.findByNome(nome));
     }
 
     @PostMapping
-    @ApiOperation("Adiciona um novo produto")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    public ResponseEntity<Produto> create(@Valid @RequestBody Produto produto) {
+    public ResponseEntity<ProdutoResponseDto> create(@Valid @RequestBody ProdutoRequestDto produto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(produto));
     }
 
     @PutMapping("/{id}")
-    @ApiOperation("Atualiza um produto")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    public ResponseEntity<Produto> update(@ApiParam(value = "Id de um produto", example = "1") @PathVariable Long id, 
-                                          @Valid @RequestBody Produto produto) {
+    public ResponseEntity<ProdutoResponseDto> update(@PathVariable Long id, 
+                                                     @Valid @RequestBody ProdutoRequestDto produto) {
         return ResponseEntity.ok(produtoService.updateById(id, produto));
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation("Remove um produto")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable Long id) { 
         produtoService.deleteById(id);
