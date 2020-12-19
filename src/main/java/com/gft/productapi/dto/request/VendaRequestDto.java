@@ -4,24 +4,31 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.gft.productapi.entity.Cliente;
-import com.gft.productapi.entity.Fornecedor;
-import com.gft.productapi.entity.Produto;
+import com.gft.productapi.dto.ClienteDto;
+import com.gft.productapi.dto.FornecedorDto;
+import com.gft.productapi.dto.ProdutoDto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class VendaRequestDto {
-    private Fornecedor fornecedor;
-    private Cliente cliente;
-    private Set<Produto> produtos;
+
+    @NotNull
+    private FornecedorDto fornecedor;
+
+    @NotNull
+    private ClienteDto cliente;
+
+    @NotNull
+    private Set<ProdutoDto> produtos;
+
     private BigDecimal totalCompra;
 
+    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCompra;
 }
