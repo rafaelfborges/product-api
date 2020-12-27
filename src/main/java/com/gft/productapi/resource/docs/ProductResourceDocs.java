@@ -27,7 +27,7 @@ public interface ProductResourceDocs {
     @ApiOperation("Buscar um produto pelo nome")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ProductResponseDto findByNome(@ApiParam(value = "Nome de um produto", example = "Notebook") String name);
+    ProductResponseDto findByName(@ApiParam(value = "Nome de um produto", example = "Notebook") String name);
     
     @ApiOperation("Adiciona um novo produto")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 

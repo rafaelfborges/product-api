@@ -45,7 +45,7 @@ public class SupplierService implements SupplierServiceInterface {
 	}
 
 	@Override
-	public SupplierResponseDto findByNome(String name) {
+	public SupplierResponseDto findByName(String name) {
 		Supplier supplier = repository.findByNameIgnoreCaseContaining(name)
 										  .orElseThrow(ResourceNotFoundException::new);
 		return mapper.mapResponse(supplier);

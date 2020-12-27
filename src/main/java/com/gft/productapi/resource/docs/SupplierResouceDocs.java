@@ -28,7 +28,7 @@ public interface SupplierResouceDocs {
     @ApiOperation("Buscar um fornecedor pelo nome")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    SupplierResponseDto findByNome(@ApiParam(value = "Nome de um fornecedor", example = "Amazon") String name);
+    SupplierResponseDto findByName(@ApiParam(value = "Nome de um fornecedor", example = "Amazon") String name);
 
     @ApiOperation("Adiciona um novo fornecedor")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 

@@ -45,8 +45,8 @@ public class SaleResource implements SaleResourceDocs {
 
     @GetMapping("/name/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public SaleResponseDto findByNome(@PathVariable String name) {
-        return saleService.findByNome(name);
+    public SaleResponseDto findByName(@PathVariable String name) {
+        return saleService.findByName(name);
     }
 
     @PostMapping

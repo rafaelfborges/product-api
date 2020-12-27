@@ -45,8 +45,8 @@ public class ClientResource implements ClientResourceDocs {
 
     @GetMapping("/name/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public ClientResponseDto findByNome(@PathVariable String name) {
-        return clientService.findByNome(name);
+    public ClientResponseDto findByName(@PathVariable String name) {
+        return clientService.findByName(name);
     }
 
     @PostMapping

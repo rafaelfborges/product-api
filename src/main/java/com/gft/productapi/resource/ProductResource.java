@@ -45,8 +45,8 @@ public class ProductResource implements ProductResourceDocs {
 
     @GetMapping("/name/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductResponseDto findByNome(@PathVariable String name) {
-        return productService.findByNome(name);
+    public ProductResponseDto findByName(@PathVariable String name) {
+        return productService.findByName(name);
     }
 
     @PostMapping

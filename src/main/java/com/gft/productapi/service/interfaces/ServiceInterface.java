@@ -11,7 +11,7 @@ public interface ServiceInterface<T, S> {
 
     T findById(Long id);
 
-    T findByNome(String name);
+    T findByName(String name);
 
     T updateById(Long id, S t);
 

@@ -58,7 +58,7 @@ public class SaleService implements SaleServiceInterface {
 	}
 
 	@Override
-	public SaleResponseDto findByNome(String name) {
+	public SaleResponseDto findByName(String name) {
 		return mapper.mapResponse(repository.findSaleByClientNameContainingIgnoreCase(name)
 											.orElseThrow(ResourceNotFoundException::new));
 	}

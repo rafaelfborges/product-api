@@ -44,7 +44,7 @@ public class ClientService implements ClientServiceInterface {
 	}
 
 	@Override
-	public ClientResponseDto findByNome(String name) {
+	public ClientResponseDto findByName(String name) {
 		Client client = repository.findByNameIgnoreCaseContaining(name)
 									.orElseThrow(ResourceNotFoundException::new);
 		return mapper.mapResponse(client);

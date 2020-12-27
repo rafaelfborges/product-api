@@ -49,7 +49,7 @@ public class ProductService implements ProductServiceInterface {
 	}
 
 	@Override
-	public ProductResponseDto findByNome(String name) {
+	public ProductResponseDto findByName(String name) {
 		return mapper.mapResponse(repository.findByNameIgnoreCaseContaining(name)
 											.orElseThrow(ResourceNotFoundException::new));
 	}

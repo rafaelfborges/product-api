@@ -27,7 +27,7 @@ public interface ClientResourceDocs {
     @ApiOperation("Buscar um cliente pelo nome")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ClientResponseDto findByNome(@ApiParam(value = "Nome de um cliente", example = "Rafael") String name);
+    ClientResponseDto findByName(@ApiParam(value = "Nome de um cliente", example = "Rafael") String name);
 
     @ApiOperation("Adiciona um novo cliente")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 

@@ -30,7 +30,7 @@ public interface SaleResourceDocs {
     @ApiOperation("Buscar uma venda pelo nome do fornecedor")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    SaleResponseDto findByNome(@ApiParam(value = "Nome de um fornecedor", example = "1") String name);
+    SaleResponseDto findByName(@ApiParam(value = "Nome de um fornecedor", example = "1") String name);
 
     @ApiOperation("Adiciona uma nova venda")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false,

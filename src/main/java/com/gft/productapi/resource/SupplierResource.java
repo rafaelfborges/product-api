@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/fornecedores")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SuppierResouce implements SupplierResouceDocs {
+public class SupplierResource implements SupplierResouceDocs {
 
     private final SupplierService supplierService;
 
@@ -45,8 +45,8 @@ public class SuppierResouce implements SupplierResouceDocs {
 
     @GetMapping("/name/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public SupplierResponseDto findByNome(@PathVariable String name) {
-        return supplierService.findByNome(name);
+    public SupplierResponseDto findByName(@PathVariable String name) {
+        return supplierService.findByName(name);
     }
 
     @PostMapping
