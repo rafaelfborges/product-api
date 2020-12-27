@@ -1,9 +1,9 @@
-package com.gft.productapi.dto;
+package com.gft.productapi.dto.id;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class SupplierDto {
+public class ClientDto {
     private Long id;
 }

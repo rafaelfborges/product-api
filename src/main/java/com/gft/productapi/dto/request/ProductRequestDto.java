@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
-import com.gft.productapi.dto.SupplierDto;
+import com.gft.productapi.dto.id.SupplierDto;
 
 import lombok.Getter;
 import lombok.Setter;

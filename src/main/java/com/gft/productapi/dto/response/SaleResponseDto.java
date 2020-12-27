@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gft.productapi.dto.ClientDto;
-import com.gft.productapi.dto.SupplierDto;
-import com.gft.productapi.dto.ProductDto;
+import com.gft.productapi.dto.id.ClientDto;
+import com.gft.productapi.dto.id.SupplierDto;
+import com.gft.productapi.dto.id.ProductDto;
 
 import lombok.Getter;
 import lombok.Setter;

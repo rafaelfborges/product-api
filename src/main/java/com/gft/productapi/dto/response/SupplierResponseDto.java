@@ -3,7 +3,7 @@ package com.gft.productapi.dto.response;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.gft.productapi.dto.ProductDto;
+import com.gft.productapi.dto.id.ProductDto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,7 +2,7 @@ package com.gft.productapi.dto.response;
 
 import java.math.BigDecimal;
 
-import com.gft.productapi.dto.SupplierDto;
+import com.gft.productapi.dto.id.SupplierDto;
 
 import lombok.Getter;
 import lombok.Setter;
