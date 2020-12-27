@@ -7,43 +7,40 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.gft.productapi.dto.FornecedorDto;
+import com.gft.productapi.dto.SupplierDto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class ProdutoRequestDto {
 
     @NotBlank
-    private String nome;
+    private String name;
 
     @NotBlank
-    private String codigoProduto;
+    private String productCode;
 
     @NotNull
     @Positive
-    private BigDecimal valor;
+    private BigDecimal value;
 
     @NotNull
-    private Boolean promocao;
+    private Boolean promotion;
 
     @PositiveOrZero
-    private BigDecimal valorPromo;
+    private BigDecimal promotionValue;
 
     @NotBlank
-    private String categoria;
+    private String category;
 
     @NotBlank
-    private String imagem;
+    private String image;
 
     @NotNull
     @PositiveOrZero
-    private Long quantidade;
+    private Long quantity;
 
     @NotNull
-    private FornecedorDto fornecedor;
+    private SupplierDto supplier;
 }
