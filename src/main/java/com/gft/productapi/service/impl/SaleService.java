@@ -53,14 +53,14 @@ public class SaleService implements SaleServiceInterface {
 
 	@Override
 	public SaleResponseDto findById(Long id) {
-		return mapper.mapResponse(repository.findById(id)
-											.orElseThrow(ResourceNotFoundException::new));
+		Sale sale = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		return mapper.mapResponse(sale);
 	}
 
 	@Override
 	public SaleResponseDto findByName(String name) {
-		return mapper.mapResponse(repository.findSaleByClientNameContainingIgnoreCase(name)
-											.orElseThrow(ResourceNotFoundException::new));
+		Sale sale = repository.findSaleByClientNameContainingIgnoreCase(name).orElseThrow(ResourceNotFoundException::new);
+		return mapper.mapResponse(sale);
 	}
 
 	@Override

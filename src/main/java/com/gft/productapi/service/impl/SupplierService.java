@@ -40,14 +40,13 @@ public class SupplierService implements SupplierServiceInterface {
 
 	@Override
 	public SupplierResponseDto findById(Long id) {
-		return mapper.mapResponse(repository.findById(id)
-											.orElseThrow(ResourceNotFoundException::new));
+		Supplier supplier = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		return mapper.mapResponse(supplier);
 	}
 
 	@Override
 	public SupplierResponseDto findByName(String name) {
-		Supplier supplier = repository.findByNameIgnoreCaseContaining(name)
-										  .orElseThrow(ResourceNotFoundException::new);
+		Supplier supplier = repository.findByNameIgnoreCaseContaining(name).orElseThrow(ResourceNotFoundException::new);
 		return mapper.mapResponse(supplier);
 	}
 

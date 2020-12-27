@@ -40,13 +40,13 @@ public class ClientService implements ClientServiceInterface {
 
 	@Override
 	public ClientResponseDto findById(Long id) {
-		return mapper.mapResponse(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
+		Client client = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		return mapper.mapResponse(client);
 	}
 
 	@Override
 	public ClientResponseDto findByName(String name) {
-		Client client = repository.findByNameIgnoreCaseContaining(name)
-									.orElseThrow(ResourceNotFoundException::new);
+		Client client = repository.findByNameIgnoreCaseContaining(name).orElseThrow(ResourceNotFoundException::new);
 		return mapper.mapResponse(client);
 	}
 

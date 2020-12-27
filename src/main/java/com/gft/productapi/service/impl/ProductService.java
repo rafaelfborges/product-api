@@ -44,14 +44,14 @@ public class ProductService implements ProductServiceInterface {
 
 	@Override
 	public ProductResponseDto findById(Long id) {
-		return mapper.mapResponse(repository.findById(id)
-										    .orElseThrow(ResourceNotFoundException::new));
+		Product product = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		return mapper.mapResponse(product);
 	}
 
 	@Override
 	public ProductResponseDto findByName(String name) {
-		return mapper.mapResponse(repository.findByNameIgnoreCaseContaining(name)
-											.orElseThrow(ResourceNotFoundException::new));
+		Product product = repository.findByNameIgnoreCaseContaining(name).orElseThrow(ResourceNotFoundException::new);
+		return mapper.mapResponse(product);
 	}
 
 	@Override
