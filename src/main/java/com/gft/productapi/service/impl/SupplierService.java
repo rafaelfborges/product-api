@@ -3,13 +3,13 @@ package com.gft.productapi.service.impl;
 import com.gft.productapi.dto.request.SupplierRequestDto;
 import com.gft.productapi.dto.response.SupplierResponseDto;
 import com.gft.productapi.entity.Supplier;
+import com.gft.productapi.exception.ResourceNotFoundException;
 import com.gft.productapi.mapper.SupplierMapper;
 import com.gft.productapi.repository.SupplierRepository;
 import com.gft.productapi.service.interfaces.SupplierServiceInterface;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -41,19 +41,19 @@ public class SupplierService implements SupplierServiceInterface {
 	@Override
 	public SupplierResponseDto findById(Long id) {
 		return mapper.mapResponse(repository.findById(id)
-											.orElseThrow(() -> new EmptyResultDataAccessException(1)));
+											.orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public SupplierResponseDto findByNome(String name) {
 		Supplier supplier = repository.findByNameIgnoreCaseContaining(name)
-										  .orElseThrow(() -> new EmptyResultDataAccessException(1));
+										  .orElseThrow(ResourceNotFoundException::new);
 		return mapper.mapResponse(supplier);
 	}
 
 	@Override
 	public SupplierResponseDto updateById(Long id, SupplierRequestDto fornecedorDto) {
-		Supplier supplier = repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+		Supplier supplier = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
 		BeanUtils.copyProperties(fornecedorDto, supplier, "id");
 		return mapper.mapResponse(repository.save(supplier));
 	}

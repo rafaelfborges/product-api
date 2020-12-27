@@ -3,13 +3,13 @@ package com.gft.productapi.service.impl;
 import com.gft.productapi.dto.request.ClientRequestDto;
 import com.gft.productapi.dto.response.ClientResponseDto;
 import com.gft.productapi.entity.Client;
+import com.gft.productapi.exception.ResourceNotFoundException;
 import com.gft.productapi.mapper.ClientMapper;
 import com.gft.productapi.repository.ClientRepository;
 import com.gft.productapi.service.interfaces.ClientServiceInterface;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -40,19 +40,19 @@ public class ClientService implements ClientServiceInterface {
 
 	@Override
 	public ClientResponseDto findById(Long id) {
-		return mapper.mapResponse(repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1)));
+		return mapper.mapResponse(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public ClientResponseDto findByNome(String name) {
 		Client client = repository.findByNameIgnoreCaseContaining(name)
-									.orElseThrow(() -> new EmptyResultDataAccessException(1));
+									.orElseThrow(ResourceNotFoundException::new);
 		return mapper.mapResponse(client);
 	}
 
 	@Override
 	public ClientResponseDto updateById(Long id, ClientRequestDto clienteDto) {
-		Client client = repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+		Client client = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
 		BeanUtils.copyProperties(clienteDto, client, "id");
 		return mapper.mapResponse(repository.save(client));
 	}

@@ -7,13 +7,13 @@ import com.gft.productapi.dto.request.SaleRequestDto;
 import com.gft.productapi.dto.response.SaleResponseDto;
 import com.gft.productapi.entity.Product;
 import com.gft.productapi.entity.Sale;
+import com.gft.productapi.exception.ResourceNotFoundException;
 import com.gft.productapi.mapper.SaleMapper;
 import com.gft.productapi.repository.SaleRepository;
 import com.gft.productapi.service.interfaces.SaleServiceInterface;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -54,18 +54,18 @@ public class SaleService implements SaleServiceInterface {
 	@Override
 	public SaleResponseDto findById(Long id) {
 		return mapper.mapResponse(repository.findById(id)
-											.orElseThrow(() -> new EmptyResultDataAccessException(1)));
+											.orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public SaleResponseDto findByNome(String name) {
 		return mapper.mapResponse(repository.findSaleByClientNameContainingIgnoreCase(name)
-											.orElseThrow(() -> new EmptyResultDataAccessException(1)));
+											.orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public SaleResponseDto updateById(Long id, SaleRequestDto vendaDto) {
-		Sale sale = repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+		Sale sale = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
 		BeanUtils.copyProperties(vendaDto, sale, "id");
 		return mapper.mapResponse(repository.save(sale));
 	}

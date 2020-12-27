@@ -3,17 +3,17 @@ package com.gft.productapi.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.gft.productapi.entity.Product;
-import com.gft.productapi.exception.ProductOutOfStockException;
 import com.gft.productapi.dto.request.ProdutoRequestDto;
 import com.gft.productapi.dto.response.ProductResponseDto;
+import com.gft.productapi.entity.Product;
+import com.gft.productapi.exception.ProductOutOfStockException;
+import com.gft.productapi.exception.ResourceNotFoundException;
 import com.gft.productapi.mapper.ProductMapper;
 import com.gft.productapi.repository.ProductRepository;
 import com.gft.productapi.service.interfaces.ProductServiceInterface;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -45,18 +45,18 @@ public class ProductService implements ProductServiceInterface {
 	@Override
 	public ProductResponseDto findById(Long id) {
 		return mapper.mapResponse(repository.findById(id)
-										    .orElseThrow(() -> new EmptyResultDataAccessException(1)));
+										    .orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public ProductResponseDto findByNome(String name) {
 		return mapper.mapResponse(repository.findByNameIgnoreCaseContaining(name)
-											.orElseThrow(() -> new EmptyResultDataAccessException(1)));
+											.orElseThrow(ResourceNotFoundException::new));
 	}
 
 	@Override
 	public ProductResponseDto updateById(Long id, ProdutoRequestDto produtoDto) {
-		Product product = repository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+		Product product = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
 		BeanUtils.copyProperties(produtoDto, product, "id");
 		return mapper.mapResponse(repository.save(product));
 	}
