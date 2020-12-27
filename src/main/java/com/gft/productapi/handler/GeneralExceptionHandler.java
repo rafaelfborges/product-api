@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.gft.productapi.exception.ProdutoSemEstoqueException;
+import com.gft.productapi.exception.ProductOutOfStockException;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,79 +38,79 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, 
         HttpHeaders headers, HttpStatus status, WebRequest request) {
         
-        String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
-        String mensagemDev = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
+        String userMessage = messageSource.getMessage("message.invalid", null, LocaleContextHolder.getLocale());
+        String devMessage = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
 
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
+        List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
-        return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
             HttpHeaders headers, HttpStatus status, WebRequest request) {
         
-        List<Erro> erros = criarListDeErros(ex.getBindingResult());
+        List<Error> errors = criarListDeErros(ex.getBindingResult());
 
-        return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler({ EmptyResultDataAccessException.class })
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
-        String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
-        String mensagemDev = ex.toString();
+        String userMessage = messageSource.getMessage("resource.not-found", null, LocaleContextHolder.getLocale());
+        String devMessage = ex.toString();
         
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
+        List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
-        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+        return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler({ DataIntegrityViolationException.class } )
     public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
-        String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null, LocaleContextHolder.getLocale());
-        String mensagemDev = ExceptionUtils.getRootCauseMessage(ex);
+        String userMessage = messageSource.getMessage("resource.operation-not-allowed", null, LocaleContextHolder.getLocale());
+        String devMessage = ExceptionUtils.getRootCauseMessage(ex);
         
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
+        List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
-        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler({ InvalidDataAccessApiUsageException.class })
     public ResponseEntity<Object> handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException ex, WebRequest request) {
-        String mensagemUsuario = messageSource.getMessage("recurso.propriedade-referenciada-nula", null, LocaleContextHolder.getLocale());
-        String mensagemDev = ExceptionUtils.getRootCauseMessage(ex);
+        String userMessage = messageSource.getMessage("resource.null-property-reference", null, LocaleContextHolder.getLocale());
+        String devMessage = ExceptionUtils.getRootCauseMessage(ex);
         
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
+        List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
-        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ ProdutoSemEstoqueException.class })
-    public ResponseEntity<Object> handleProdutoSemEstoqueException(ProdutoSemEstoqueException ex, WebRequest request) {
-        String mensagemUsuario = ex.getMessage();
-        String mensagemDev = ExceptionUtils.getRootCauseMessage(ex);
+    @ExceptionHandler({ ProductOutOfStockException.class })
+    public ResponseEntity<Object> handleProdutoSemEstoqueException(ProductOutOfStockException ex, WebRequest request) {
+        String userMessage = ex.getMessage();
+        String devMessage = ExceptionUtils.getRootCauseMessage(ex);
         
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
+        List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
-        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    private List<Erro> criarListDeErros(BindingResult bindingResult) {
-        List<Erro> erros = new ArrayList<>();
+    private List<Error> criarListDeErros(BindingResult bindingResult) {
+        List<Error> errors = new ArrayList<>();
 
         for(FieldError fieldError : bindingResult.getFieldErrors()) {
-            String mensagemUsuario = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
-            String mensagemDev = fieldError.toString();
-            erros.add(new Erro(mensagemUsuario, mensagemDev));
+            String userMessage = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+            String devMessage = fieldError.toString();
+            errors.add(new Error(userMessage, devMessage));
         }
 
-        return erros;
+        return errors;
     }
 
     @Getter
     @AllArgsConstructor
-    public static class Erro {
-        private String mensagemUsuario;
-        private String mensagemDev;
+    public static class Error {
+        private String userMessage;
+        private String devMessage;
     }
 }

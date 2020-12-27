@@ -30,7 +30,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .tags(new Tag("Clientes", "Gerencia os clientes"))
                 .tags(new Tag("Produtos", "Gerencia os produtos"))
                 .tags(new Tag("Fornecedores", "Gerencia os fornecedores"))
-                .tags(new Tag("Vendas", "Gerencia as vendas"));
+                .tags(new Tag("Vendas", "Gerencia as vedas"));
     }
 
     public ApiInfo apiInfo() {
