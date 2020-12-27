@@ -33,13 +33,13 @@ public class SaleService implements SaleServiceInterface {
 	public SaleResponseDto save(SaleRequestDto vendaDto) {
 		Sale sale = mapper.mapRequest(vendaDto);
 
-		List<Long> idsProdutos = sale.getProducts().stream()
+		List<Long> idsProducts = sale.getProducts().stream()
 									 			    .map(Product::getId)
 												    .collect(Collectors.toList());
 
-		productService.verificarEstoqueProdutos(idsProdutos);
-		sale.setTotalSale(productService.somarTotalProdutos(idsProdutos));
-		productService.diminuirEstoqueProdutos(idsProdutos);
+		productService.verifyStockProducts(idsProducts);
+		sale.setTotalSale(productService.sumTotalProducts(idsProducts));
+		productService.decreaseStockProducts(idsProducts);
 		return mapper.mapResponse(repository.save(sale));
 	}
 

@@ -66,21 +66,21 @@ public class ProductService implements ProductServiceInterface {
 	}
 
 	@Override
-	public BigDecimal somarTotalProdutos(List<Long> ids) {
+	public BigDecimal sumTotalProducts(List<Long> ids) {
 		return repository.findAllById(ids).stream()
 										  .map(Product::getValue)
 								          .reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
 	@Override
-	public void diminuirEstoqueProdutos(List<Long> ids) {
+	public void decreaseStockProducts(List<Long> ids) {
 		List<Product> products = repository.findAllById(ids);
 		products.forEach(Product::decreaseQuantity);
 		repository.saveAll(products);
 	}
 
 	@Override
-	public void verificarEstoqueProdutos(List<Long> ids) {
+	public void verifyStockProducts(List<Long> ids) {
 		for(Product p : repository.findAllById(ids)) {
 			if(p.getQuantity().intValue() <= 0 )
 				throw new ProductOutOfStockException(p.getName());

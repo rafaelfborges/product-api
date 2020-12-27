@@ -8,10 +8,10 @@ import com.gft.productapi.dto.response.ProductResponseDto;
 
 public interface ProductServiceInterface extends ServiceInterface<ProductResponseDto, ProdutoRequestDto> {
     
-    BigDecimal somarTotalProdutos(List<Long> ids);
+    BigDecimal sumTotalProducts(List<Long> ids);
 
-    void diminuirEstoqueProdutos(List<Long> ids);
+    void decreaseStockProducts(List<Long> ids);
 
-    void verificarEstoqueProdutos(List<Long> ids);
+    void verifyStockProducts(List<Long> ids);
 }
 
