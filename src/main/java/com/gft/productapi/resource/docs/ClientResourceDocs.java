@@ -1,51 +1,46 @@
 package com.gft.productapi.resource.docs;
 
-import com.gft.productapi.dto.request.FornecedorRequestDto;
-import com.gft.productapi.dto.response.FornecedorResponseDto;
+import com.gft.productapi.dto.request.ClientRequestDto;
+import com.gft.productapi.dto.response.ClientResponseDto;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Api(tags = "Fornecedores")
-public interface FornecedorResouceDocs {
+@Api(tags = "Clientes")
+public interface ClientResourceDocs {
     
-    @ApiOperation("Listar todas os fornecedores")
+    @ApiOperation("Listar todas os clientes")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<Page<FornecedorResponseDto>> findAll(Pageable pageable);
+    Page<ClientResponseDto> findAll(Pageable pageable);
 
-    @ApiOperation("Buscar um fornecedor pelo id")
+    @ApiOperation("Buscar um cliente pelo id")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<FornecedorResponseDto> findById(@ApiParam(value = "Id de um fornecedor", example = "1") Long id);
+    ClientResponseDto findById(@ApiParam(value = "Id de um cliente", example = "1") Long id);
 
-    @ApiOperation("Buscar um fornecedor pelo nome")
+    @ApiOperation("Buscar um cliente pelo nome")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<FornecedorResponseDto> findByNome(@ApiParam(value = "Nome de um fornecedor", example = "Amazon") 
-                                                     String nome);
+    ClientResponseDto findByNome(@ApiParam(value = "Nome de um cliente", example = "Rafael") String name);
 
-    @ApiOperation("Adiciona um novo fornecedor")
+    @ApiOperation("Adiciona um novo cliente")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<FornecedorResponseDto> create(FornecedorRequestDto fornecedor);
+    ClientResponseDto create(ClientRequestDto client);
 
-    @ApiOperation("Atualiza um fornecedor")
+    @ApiOperation("Atualiza um cliente")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<FornecedorResponseDto> update(@ApiParam(value = "Id de um fornecedor", example = "1") 
-                                                 Long id,
-                                                 FornecedorRequestDto fornecedor);
+    ClientResponseDto update(@ApiParam(value = "Id de um cliente", example = "1") Long id, ClientRequestDto client);
 
-    @ApiOperation("Remove um fornecedor")
+    @ApiOperation("Remove um cliente")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    void remove(@PathVariable Long id);
+    void remove(Long id);
 }

@@ -1,50 +1,47 @@
 package com.gft.productapi.resource.docs;
 
-import com.gft.productapi.dto.request.ProdutoRequestDto;
-import com.gft.productapi.dto.response.ProdutoResponseDto;
+import com.gft.productapi.dto.request.SupplierRequestDto;
+import com.gft.productapi.dto.response.SupplierResponseDto;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Api(tags = "Produtos")
-public interface ProdutoResourceDocs {
+@Api(tags = "Fornecedores")
+public interface SupplierResouceDocs {
     
-    @ApiOperation("Listar todas os produtos")
+    @ApiOperation("Listar todas os fornecedores")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<Page<ProdutoResponseDto>> findAll(Pageable pageable);
+    Page<SupplierResponseDto> findAll(Pageable pageable);
 
-    @ApiOperation("Buscar um produto pelo id")
+    @ApiOperation("Buscar um fornecedor pelo id")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<ProdutoResponseDto> findById(@ApiParam(value = "Id de um produto", example = "1") Long id);
+    SupplierResponseDto findById(@ApiParam(value = "Id de um fornecedor", example = "1") Long id);
 
-    @ApiOperation("Buscar um produto pelo nome")
+    @ApiOperation("Buscar um fornecedor pelo nome")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<ProdutoResponseDto> findByNome(@ApiParam(value = "Nome de um produto", example = "Notebook") 
-                                                  String nome);
-    
-    @ApiOperation("Adiciona um novo produto")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    ResponseEntity<ProdutoResponseDto> create(ProdutoRequestDto produto);
-    
-    @ApiOperation("Atualiza um produto")
-    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
-                      paramType = "header", example = "Bearer access_token")
-    ResponseEntity<ProdutoResponseDto> update(@ApiParam(value = "Id de um produto", example = "1") 
-                                                     Long id, 
-                                                     ProdutoRequestDto produto);
+    SupplierResponseDto findByNome(@ApiParam(value = "Nome de um fornecedor", example = "Amazon") String name);
 
-    @ApiOperation("Remove um produto")
+    @ApiOperation("Adiciona um novo fornecedor")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    void remove(Long id);
+    SupplierResponseDto create(SupplierRequestDto supplier);
+
+    @ApiOperation("Atualiza um fornecedor")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
+    SupplierResponseDto update(@ApiParam(value = "Id de um fornecedor", example = "1") Long id, SupplierRequestDto supplier);
+
+    @ApiOperation("Remove um fornecedor")
+    @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
+                      paramType = "header", example = "Bearer access_token")
+    void remove(@PathVariable Long id);
 }

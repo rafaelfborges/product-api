@@ -1,49 +1,45 @@
 package com.gft.productapi.resource.docs;
 
-import com.gft.productapi.dto.request.ClienteRequestDto;
-import com.gft.productapi.dto.response.ClienteResponseDto;
+import com.gft.productapi.dto.request.ProdutoRequestDto;
+import com.gft.productapi.dto.response.ProductResponseDto;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Api(tags = "Clientes")
-public interface ClienteResourceDocs {
+@Api(tags = "Produtos")
+public interface ProductResourceDocs {
     
-    @ApiOperation("Listar todas os clientes")
+    @ApiOperation("Listar todas os produtos")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<Page<ClienteResponseDto>> findAll(Pageable pageable);
+    Page<ProductResponseDto> findAll(Pageable pageable);
 
-    @ApiOperation("Buscar um cliente pelo id")
+    @ApiOperation("Buscar um produto pelo id")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<ClienteResponseDto> findById(@ApiParam(value = "Id de um cliente", example = "1") Long id);
+    ProductResponseDto findById(@ApiParam(value = "Id de um produto", example = "1") Long id);
 
-    @ApiOperation("Buscar um cliente pelo nome")
+    @ApiOperation("Buscar um produto pelo nome")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<ClienteResponseDto> findByNome(@ApiParam(value = "Nome de um cliente", example = "Rafael") 
-                                                  String nome);
-
-    @ApiOperation("Adiciona um novo cliente")
+    ProductResponseDto findByNome(@ApiParam(value = "Nome de um produto", example = "Notebook") String name);
+    
+    @ApiOperation("Adiciona um novo produto")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<ClienteResponseDto> create(ClienteRequestDto cliente);
-
-    @ApiOperation("Atualiza um cliente")
+    ProductResponseDto create(ProdutoRequestDto product);
+    
+    @ApiOperation("Atualiza um produto")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ResponseEntity<ClienteResponseDto> update(@ApiParam(value = "Id de um cliente", example = "1") 
-                                              Long id, 
-                                              ClienteRequestDto cliente);
+    ProductResponseDto update(@ApiParam(value = "Id de um produto", example = "1") Long id, ProdutoRequestDto product);
 
-    @ApiOperation("Remove um cliente")
+    @ApiOperation("Remove um produto")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
     void remove(Long id);
