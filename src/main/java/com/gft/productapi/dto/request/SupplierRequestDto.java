@@ -11,7 +11,7 @@ import lombok.Setter;
 public class SupplierRequestDto {
 
     @NotBlank
-    private String name;
+    private String nome;
 
     @CNPJ
     @NotBlank

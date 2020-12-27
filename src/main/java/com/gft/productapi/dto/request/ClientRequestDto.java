@@ -12,14 +12,14 @@ import lombok.ToString;
 public class ClientRequestDto {
 
     @NotBlank
-    private String name;
+    private String nome;
 
     @NotBlank
     private String email;
 
     @NotBlank
-    private String password;
+    private String senha;
 
     @NotBlank
-    private String document;
+    private String documento;
 }

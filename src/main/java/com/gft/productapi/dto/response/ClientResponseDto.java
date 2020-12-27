@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 public class ClientResponseDto {
     private Long id;
-    private String name;
+    private String nome;
     private String email;
-    private String document;
+    private String documento;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate registerDate;
+    private LocalDate dataCadastro;
 }

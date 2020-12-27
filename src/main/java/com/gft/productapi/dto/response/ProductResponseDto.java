@@ -10,13 +10,13 @@ import lombok.Setter;
 @Getter @Setter
 public class ProductResponseDto {
     private Long id;
-    private String name;
-    private String productCode;
-    private BigDecimal value;
-    private Boolean promotion;
-    private BigDecimal promotionValue;
-    private String category;
-    private String image;
-    private Long quantity;
-    private SupplierDto supplier;
+    private String nome;
+    private String codigoProduto;
+    private BigDecimal valor;
+    private Boolean promocao;
+    private BigDecimal valorPromo;
+    private String categoria;
+    private String imagem;
+    private Long quantidade;
+    private SupplierDto fornecedor;
 }

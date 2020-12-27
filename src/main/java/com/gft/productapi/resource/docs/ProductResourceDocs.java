@@ -1,6 +1,6 @@
 package com.gft.productapi.resource.docs;
 
-import com.gft.productapi.dto.request.ProdutoRequestDto;
+import com.gft.productapi.dto.request.ProductRequestDto;
 import com.gft.productapi.dto.response.ProductResponseDto;
 
 import org.springframework.data.domain.Page;
@@ -32,12 +32,12 @@ public interface ProductResourceDocs {
     @ApiOperation("Adiciona um novo produto")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ProductResponseDto create(ProdutoRequestDto product);
+    ProductResponseDto create(ProductRequestDto product);
     
     @ApiOperation("Atualiza um produto")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 
                       paramType = "header", example = "Bearer access_token")
-    ProductResponseDto update(@ApiParam(value = "Id de um produto", example = "1") Long id, ProdutoRequestDto product);
+    ProductResponseDto update(@ApiParam(value = "Id de um produto", example = "1") Long id, ProductRequestDto product);
 
     @ApiOperation("Remove um produto")
     @ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, 

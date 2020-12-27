@@ -12,18 +12,18 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ClientMapper {
 
-    @Mapping(source = "name", target = "name")
+    @Mapping(source = "nome", target = "name")
     @Mapping(source = "email", target = "email")
-    @Mapping(source = "password", target = "password")
-    @Mapping(source = "document", target = "document")
+    @Mapping(source = "senha", target = "password")
+    @Mapping(source = "documento", target = "document")
     Client mapRequest(ClientRequestDto clienteDto);
     List<Client> mapRequest(List<ClientRequestDto> clients);
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    @Mapping(source = "name", target = "nome")
     @Mapping(source = "email", target = "email")
-    @Mapping(source = "document", target = "document")
-    @Mapping(source = "registerDate", target = "registerDate", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "document", target = "documento")
+    @Mapping(source = "registerDate", target = "dataCadastro", dateFormat = "dd/MM/yyyy")
     ClientResponseDto mapResponse(Client client);
     List<ClientResponseDto> mapResponse(List<Client> clients);
 }

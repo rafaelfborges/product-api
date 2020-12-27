@@ -15,11 +15,11 @@ import lombok.Setter;
 @Getter @Setter
 public class SaleResponseDto {
     private Long id;
-    private SupplierDto supplier;
-    private ClientDto client;
-    private Set<ProductDto> products;
-    private BigDecimal totalSale;
+    private SupplierDto fornecedor;
+    private ClientDto cliente;
+    private Set<ProductDto> produtos;
+    private BigDecimal totalCompra;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dateSale;
+    private LocalDate dataCompra;
 }

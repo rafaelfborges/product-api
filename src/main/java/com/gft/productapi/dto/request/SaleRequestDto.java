@@ -18,17 +18,17 @@ import lombok.Setter;
 public class SaleRequestDto {
 
     @NotNull
-    private SupplierDto supplier;
+    private SupplierDto fornecedor;
 
     @NotNull
-    private ClientDto client;
+    private ClientDto cliente;
 
     @NotNull
-    private Set<ProductDto> products;
+    private Set<ProductDto> produtos;
 
-    private BigDecimal totalSale;
+    private BigDecimal totalCompra;
 
     @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dateSale;
+    private LocalDate dataCompra;
 }

@@ -13,34 +13,34 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ProdutoRequestDto {
+public class ProductRequestDto {
 
     @NotBlank
-    private String name;
+    private String nome;
 
     @NotBlank
-    private String productCode;
+    private String codigoProduto;
 
     @NotNull
     @Positive
-    private BigDecimal value;
+    private BigDecimal valor;
 
     @NotNull
-    private Boolean promotion;
+    private Boolean promocao;
 
     @PositiveOrZero
-    private BigDecimal promotionValue;
+    private BigDecimal valorPromo;
 
     @NotBlank
-    private String category;
+    private String categoria;
 
     @NotBlank
-    private String image;
+    private String imagem;
 
     @NotNull
     @PositiveOrZero
-    private Long quantity;
+    private Long quantidade;
 
     @NotNull
-    private SupplierDto supplier;
+    private SupplierDto fornecedor;
 }

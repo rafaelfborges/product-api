@@ -3,7 +3,7 @@ package com.gft.productapi.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.gft.productapi.dto.request.ProdutoRequestDto;
+import com.gft.productapi.dto.request.ProductRequestDto;
 import com.gft.productapi.dto.response.ProductResponseDto;
 import com.gft.productapi.entity.Product;
 import com.gft.productapi.exception.ProductOutOfStockException;
@@ -29,7 +29,7 @@ public class ProductService implements ProductServiceInterface {
 	private final ProductRepository repository;
 	
 	@Override
-	public ProductResponseDto save(ProdutoRequestDto produtoDto) {
+	public ProductResponseDto save(ProductRequestDto produtoDto) {
 		Product product = mapper.mapRequest(produtoDto);
 		return mapper.mapResponse(repository.save(product));
 	}
@@ -55,7 +55,7 @@ public class ProductService implements ProductServiceInterface {
 	}
 
 	@Override
-	public ProductResponseDto updateById(Long id, ProdutoRequestDto produtoDto) {
+	public ProductResponseDto updateById(Long id, ProductRequestDto produtoDto) {
 		Product product = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
 		BeanUtils.copyProperties(produtoDto, product, "id");
 		return mapper.mapResponse(repository.save(product));

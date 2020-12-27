@@ -2,7 +2,7 @@ package com.gft.productapi.resource;
 
 import javax.validation.Valid;
 
-import com.gft.productapi.dto.request.ProdutoRequestDto;
+import com.gft.productapi.dto.request.ProductRequestDto;
 import com.gft.productapi.dto.response.ProductResponseDto;
 import com.gft.productapi.resource.docs.ProductResourceDocs;
 import com.gft.productapi.service.impl.ProductService;
@@ -52,14 +52,14 @@ public class ProductResource implements ProductResourceDocs {
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponseDto create(@Valid @RequestBody ProdutoRequestDto product) {
+    public ProductResponseDto create(@Valid @RequestBody ProductRequestDto product) {
         return productService.save(product);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public ProductResponseDto update(@PathVariable Long id, @Valid @RequestBody ProdutoRequestDto product) {
+    public ProductResponseDto update(@PathVariable Long id, @Valid @RequestBody ProductRequestDto product) {
         return productService.updateById(id, product);
     }
 

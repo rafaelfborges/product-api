@@ -12,20 +12,20 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface SaleMapper {
     
-    @Mapping(source = "supplier", target = "supplier")
-    @Mapping(source = "client", target = "client")
-    @Mapping(source = "products", target = "products")
-    @Mapping(source = "totalSale", target = "totalSale")
-    @Mapping(source = "dateSale", target = "dateSale", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "fornecedor", target = "supplier")
+    @Mapping(source = "cliente", target = "client")
+    @Mapping(source = "produtos", target = "products")
+    @Mapping(source = "totalCompra", target = "totalSale")
+    @Mapping(source = "dataCompra", target = "dateSale", dateFormat = "dd/MM/yyyy")
     Sale mapRequest(SaleRequestDto sale);
     List<Sale> mapRequest(List<SaleRequestDto> sales);
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "supplier", target = "supplier")
-    @Mapping(source = "client", target = "client")
-    @Mapping(source = "products", target = "products")
-    @Mapping(source = "totalSale", target = "totalSale")
-    @Mapping(source = "dateSale", target = "dateSale", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "supplier", target = "fornecedor")
+    @Mapping(source = "client", target = "cliente")
+    @Mapping(source = "products", target = "produtos")
+    @Mapping(source = "totalSale", target = "totalCompra")
+    @Mapping(source = "dateSale", target = "dataCompra", dateFormat = "dd/MM/yyyy")
     SaleResponseDto mapResponse(Sale sale);
     List<SaleResponseDto> mapResponse(List<Sale> sales);
 }
