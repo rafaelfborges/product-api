@@ -1,13 +1,13 @@
 package com.gft.productapi.dto.request;
 
-import javax.validation.constraints.NotBlank;
-
-import org.hibernate.validator.constraints.br.CNPJ;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CNPJ;
 
-@Getter @Setter
+import javax.validation.constraints.NotBlank;
+
+@Getter
+@Setter
 public class SupplierRequestDto {
 
     @NotBlank

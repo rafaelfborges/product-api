@@ -16,15 +16,15 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final String[] PASS_LIST = {
-        "/v2/api-docs",
-        "/swagger-resources",
-        "/swagger-resources/**",
-        "/configuration/ui",
-        "/configuration/security",
-        "/swagger-ui.html",
-        "/webjars/**"
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"
     };
-    
+
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ROLE");
@@ -36,8 +36,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(PASS_LIST).permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and().csrf().disable();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().csrf().disable();
     }
 
     @Override

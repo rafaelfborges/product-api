@@ -14,25 +14,25 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-            .withClient("angular")
-            .secret("@ngul@r0")
-            .scopes("read", "write")
-            .authorizedGrantTypes("password")
-            .accessTokenValiditySeconds(2000);
+                .withClient("angular")
+                .secret("@ngul@r0")
+                .scopes("read", "write")
+                .authorizedGrantTypes("password")
+                .accessTokenValiditySeconds(2000);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-            .tokenStore(tokenStore())
-            .authenticationManager(authenticationManager);
+                .tokenStore(tokenStore())
+                .authenticationManager(authenticationManager);
     }
 
     @Bean

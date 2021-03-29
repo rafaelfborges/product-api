@@ -1,17 +1,16 @@
 package com.gft.productapi.mapper;
 
-import java.util.List;
-
 import com.gft.productapi.dto.request.SaleRequestDto;
 import com.gft.productapi.dto.response.SaleResponseDto;
-
 import com.gft.productapi.entity.Sale;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface SaleMapper {
-    
+
     @Mapping(source = "fornecedor", target = "supplier")
     @Mapping(source = "cliente", target = "client")
     @Mapping(source = "produtos", target = "products")

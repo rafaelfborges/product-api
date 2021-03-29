@@ -1,12 +1,12 @@
 package com.gft.productapi.dto.request;
 
-import javax.validation.constraints.NotBlank;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter 
+import javax.validation.constraints.NotBlank;
+
+@Getter
 @Setter
 @ToString
 public class ClientRequestDto {

@@ -1,11 +1,8 @@
 package com.gft.productapi.handler;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.gft.productapi.exception.ProductOutOfStockException;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -25,8 +22,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @ControllerAdvice
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
@@ -35,9 +33,9 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     private MessageSource messageSource;
 
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, 
-        HttpHeaders headers, HttpStatus status, WebRequest request) {
-        
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+
         String userMessage = messageSource.getMessage("message.invalid", null, LocaleContextHolder.getLocale());
         String devMessage = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
 
@@ -48,48 +46,48 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-            HttpHeaders headers, HttpStatus status, WebRequest request) {
-        
+                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+
         List<Error> errors = criarListDeErros(ex.getBindingResult());
 
         return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ EmptyResultDataAccessException.class })
+    @ExceptionHandler({EmptyResultDataAccessException.class})
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("resource.not-found", null, LocaleContextHolder.getLocale());
         String devMessage = ex.toString();
-        
+
         List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler({ DataIntegrityViolationException.class } )
+    @ExceptionHandler({DataIntegrityViolationException.class})
     public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("resource.operation-not-allowed", null, LocaleContextHolder.getLocale());
         String devMessage = ExceptionUtils.getRootCauseMessage(ex);
-        
+
         List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ InvalidDataAccessApiUsageException.class })
+    @ExceptionHandler({InvalidDataAccessApiUsageException.class})
     public ResponseEntity<Object> handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("resource.null-property-reference", null, LocaleContextHolder.getLocale());
         String devMessage = ExceptionUtils.getRootCauseMessage(ex);
-        
+
         List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ ProductOutOfStockException.class })
+    @ExceptionHandler({ProductOutOfStockException.class})
     public ResponseEntity<Object> handleProdutoSemEstoqueException(ProductOutOfStockException ex, WebRequest request) {
         String userMessage = ex.getMessage();
         String devMessage = ExceptionUtils.getRootCauseMessage(ex);
-        
+
         List<Error> errors = Arrays.asList(new Error(userMessage, devMessage));
 
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
@@ -98,7 +96,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     private List<Error> criarListDeErros(BindingResult bindingResult) {
         List<Error> errors = new ArrayList<>();
 
-        for(FieldError fieldError : bindingResult.getFieldErrors()) {
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
             String userMessage = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
             String devMessage = fieldError.toString();
             errors.add(new Error(userMessage, devMessage));

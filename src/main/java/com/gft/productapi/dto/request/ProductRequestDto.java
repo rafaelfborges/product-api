@@ -1,18 +1,17 @@
 package com.gft.productapi.dto.request;
 
-import java.math.BigDecimal;
+import com.gft.productapi.dto.id.SupplierDto;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
-import com.gft.productapi.dto.id.SupplierDto;
-
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter @Setter
+@Getter
+@Setter
 public class ProductRequestDto {
 
     @NotBlank

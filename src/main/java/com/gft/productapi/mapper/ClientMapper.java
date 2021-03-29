@@ -1,13 +1,12 @@
 package com.gft.productapi.mapper;
 
-import java.util.List;
-
 import com.gft.productapi.dto.request.ClientRequestDto;
 import com.gft.productapi.dto.response.ClientResponseDto;
 import com.gft.productapi.entity.Client;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ClientMapper {

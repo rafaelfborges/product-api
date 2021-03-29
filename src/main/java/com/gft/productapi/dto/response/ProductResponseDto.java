@@ -1,13 +1,13 @@
 package com.gft.productapi.dto.response;
 
-import java.math.BigDecimal;
-
 import com.gft.productapi.dto.id.SupplierDto;
-
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+import java.math.BigDecimal;
+
+@Getter
+@Setter
 public class ProductResponseDto {
     private Long id;
     private String nome;

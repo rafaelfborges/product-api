@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ServiceInterface<T, S> {
-    
+
     T save(S t);
 
     Page<T> findAll(Pageable pageable);

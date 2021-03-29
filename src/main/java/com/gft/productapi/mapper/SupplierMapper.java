@@ -1,17 +1,16 @@
 package com.gft.productapi.mapper;
 
-import java.util.List;
-
 import com.gft.productapi.dto.request.SupplierRequestDto;
 import com.gft.productapi.dto.response.SupplierResponseDto;
-
 import com.gft.productapi.entity.Supplier;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface SupplierMapper {
-    
+
     @Mapping(source = "nome", target = "name")
     @Mapping(source = "cnpj", target = "cnpj")
     Supplier mapRequest(SupplierRequestDto supplier);
